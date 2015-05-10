@@ -1,0 +1,12 @@
+[
+	{
+		"name": "The Beach",
+		"actors": ["Leonardo di Caprio"],
+		"location": "Asia"
+	},
+	{
+		"name": "Shawshank redemption",
+		"actors": ["Morgan Freeman", "Tim Robbins"],
+		"location": "USA"
+	}
+]

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="WorldMaps" ng-controller="CatCtrl">
+<head>
+	<title>Interactive maps - {{query}}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.min.css">
+
+  	
+</head>
+	<body>
+		<div id="container">
+			<h1>Maps</h1>
+			<p>{{testVar.exclamation}}</p>
+			<p>{{testVar.warning}}</p>
+			<wm-category-select></wm-category-select>
+		</div>
+		<div ng-controller="InfoCtrl" class="well">
+			<h3>Are you sure about {{Info.title}}</h3>
+			<p>Info: {{Info.text}}</p>
+		</div>
+	<script src="components/angular/angular.min.js"></script>
+	<script src="js/index.min.js"></script>
+	</body>
+</html>
