@@ -1,11 +1,31 @@
 //Run with 'karma start'
-describe('CatCtrl', function(){
+describe('Maps controllers', function(){
+	describe('CatCtrl', function(){
+		var scope, ctrl, $httpBackend;
 
-	beforeEach(module('WorldMaps'));
-	
-	it('should create "categories model with 3 categories', inject(function($controller){
-		var scope = {},
+		//load the module definition before each test
+		beforeEach(module('WorldMaps'));
+		
+
+		beforeEach(inject(function(_$httpBackend_, $rootScope, $controller){
+			$httpBackend = _$httpBackend_;
+			$httpBackend.expectGET('categories.json')
+				.respond([{title: "Food"},
+						{title: "Film"},
+						{title: "Music"},
+						{title: "Language"}]);
+			scope = $rootScope.$new();
 			ctrl = $controller('CatCtrl', {$scope:scope} );
-		expect(scope.categories.length).toBe(4);
-	}));
-});
+		}));
+
+		it('should create "categories" model with 4 categories', inject(function($controller){				
+			expect(scope.categories).toBeUndefined();
+			$httpBackend.flush();
+
+			expect(scope.categories).toEqual([{title: "Food"},
+						{title: "Film"},
+						{title: "Music"},
+						{title: "Language"}]);
+		}));
+	});
+})

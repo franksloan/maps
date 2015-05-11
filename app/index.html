@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="WorldMaps" ng-controller="CatCtrl">
+<html lang="en" ng-app="WorldMaps">
 <head>
 	<title>Interactive maps - {{query}}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,16 +8,24 @@
   	
 </head>
 	<body>
-		<div id="container">
+		<div id="container" ng-controller="CatCtrl">
 			<h1>Maps</h1>
 			<p>{{testVar.exclamation}}</p>
 			<p>{{testVar.warning}}</p>
 			<wm-category-select></wm-category-select>
 		</div>
 		<div ng-controller="InfoCtrl" class="well">
-			<h3>Are you sure about {{Info.title}}</h3>
-			<p>Info: {{Info.text}}</p>
+			<ul class="info">
+				<li ng-repeat="film in films">
+					<a href="#/films/{{film.title}}">Title: {{film.title}}</a>
+					<p ng-repeat="actor in film.actors">Actor: {{actor}}</p>
+					<p>Where: {{film.location}}</p>
+				</li>
+			</ul>
+		
+			<pre>{{films | json}}</pre>
 		</div>
+		
 	<script src="components/angular/angular.min.js"></script>
 	<script src="js/index.min.js"></script>
 	</body>

@@ -13,7 +13,6 @@ describe('World Maps', function() {
       
       var categoryList = element.all(by.repeater('category in categories'));
       
-      console.log('working');
       expect(categoryList.count()).toBe(4);
 
       query.sendKeys('Food');
