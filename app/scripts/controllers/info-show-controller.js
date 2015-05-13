@@ -1,10 +1,9 @@
 var InfoShowController = function($scope, $http) {
-	$scope.Info = {
-		title: 'The Beach',
-		text: 'Leonardo smokes in paradise'
-	};
 	$http.get('films.json').success(function(data){
 		$scope.films = data;
+	});
+	$http.get('food.json').success(function(data){
+		$scope.food = data;
 	});
 	
 };

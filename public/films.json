@@ -1,12 +1,22 @@
 [
 	{
+		"id": "the-beach",
 		"title": "The Beach",
 		"actors": ["Leonardo di Caprio"],
-		"location": "Asia"
+		"location": "Asia",
+		"imageUrl": "http://www.filmtube.eu/files/photos/ee389847678a3a9L.jpg",
+		"description": "Twenty-something Richard travels to Thailand and finds himself in possession of a strange map. Rumours state that it leads to a solitary beach paradise, a tropical bliss - excited and intrigued, he sets out to find it.",
+		"director": "Danny Boyle",
+		"writers": "John Hodge"
 	},
 	{
+		"id": "shawshank-redemption",
 		"title": "Shawshank redemption",
 		"actors": ["Morgan Freeman", "Tim Robbins"],
-		"location": "USA"
+		"location": "USA",
+		"imageUrl": "http://www.dvdsreleasedates.com/covers/the-shawshank-redemption-dvd-cover-27.jpg",
+		"description": "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
+		"director": "Frank Darabont",
+		"writers": "Stephen King"
 	}
 ]

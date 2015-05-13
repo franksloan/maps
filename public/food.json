@@ -1,9 +1,11 @@
 [
 	{
+		"id": "chilli-con-carne",
 		"name": "Chilli con Carne",
 		"ingredients": ["Minced beef", "tomato", "kidney beans"]
 	},
 	{
+		"id": "chicken-korma",
 		"name": "Chicken korma",
 		"ingredients": ["Chicken", "Curry sauce"]
 	}

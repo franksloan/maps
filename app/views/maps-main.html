@@ -1,0 +1,25 @@
+<div id="container">
+	<h1>Maps</h1>
+	<p>{{testVar.exclamation}}</p>
+	<p>{{testVar.warning}}</p>
+	<wm-category-select></wm-category-select>
+</div>
+<div class="well col-md-9">
+	<ul class="info" ng-controller="FilmCtrl">
+		<li ng-repeat="film in films" class="thumbnail">
+			<a href="#/main/films/{{film.id}}" class='thumb'><img ng-src="{{film.imageUrl}}"</a>
+			<a href="#/main/films/{{film.id}}">{{film.title}}</a>
+			<p>Actors:<span ng-repeat="actor in film.actors"> {{actor}}</span></p>
+			<p>Where: {{film.location}}</p>
+		</li>
+		<pre>{{films | json}}</pre>
+	</ul>
+	<ul class="info" ng-controller="FoodCtrl">
+		<li ng-repeat="recipe in food" class="thumbnail">
+			<a href="#/main/food/{{recipe.id}}">{{recipe.name}}</a>
+			<p><b>Ingredients:</b><span ng-repeat="ingredient in recipe.ingredients"> {{ingredient}}</span></p>
+		</li>
+	</ul>
+
+	
+</div>

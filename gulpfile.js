@@ -13,7 +13,8 @@ var gulp = require('gulp'),
     express = require('express'),
     livereload = require('connect-livereload'),
     livereloadport = 35729,
-    port = 5000;
+    port = 5000,
+    minifyCSS = require('gulp-minify-css');
 
 //JSHint task - check for js code quality
 gulp.task('lint', function(){
@@ -52,6 +53,9 @@ gulp.task('watch', ['lint'], function(){
 	gulp.watch(['app/index.html', 'app/views/**/*.html'], [
 		'views'
 		]).on('error', writeError);
+	gulp.watch(['app/styles/*.css'], [
+		'css'
+		]).on('error', writeError);
 });
 
 //move html into served folder
@@ -62,6 +66,15 @@ gulp.task('views', function(){
 	gulp.src('app/views/**/*')
 	.pipe(gulp.dest('public/views/'))
 	.pipe(refresh(lrserver));
+});
+
+//move css and minify
+gulp.task('css', function() {
+	gulp.src('app/styles/app.css')
+	.pipe(minifyCSS())
+	.pipe(rename('style.min.css'))
+	.pipe(gulp.dest('public/css'));
+
 });
 
 // set up the server to reload any updates
@@ -86,4 +99,4 @@ gulp.task('dev', function() {
 	gulp.start('watch');
 });
 
-gulp.task('default', ['lint', 'browserify', 'views', 'dev']);
+gulp.task('default', ['lint', 'browserify', 'views', 'css', 'dev']);

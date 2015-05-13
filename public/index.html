@@ -4,29 +4,14 @@
 	<title>Interactive maps - {{query}}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
   	<link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.min.css">
-
-  	
+  	<link rel="stylesheet" href="css/style.min.css">
+  	<script src="components/angular/angular.min.js"></script>
+	<script src="components/angular-route/angular-route.min.js"></script>
+	<script src="js/index.min.js"></script>
 </head>
 	<body>
-		<div id="container" ng-controller="CatCtrl">
-			<h1>Maps</h1>
-			<p>{{testVar.exclamation}}</p>
-			<p>{{testVar.warning}}</p>
-			<wm-category-select></wm-category-select>
-		</div>
-		<div ng-controller="InfoCtrl" class="well">
-			<ul class="info">
-				<li ng-repeat="film in films">
-					<a href="#/films/{{film.title}}">Title: {{film.title}}</a>
-					<p ng-repeat="actor in film.actors">Actor: {{actor}}</p>
-					<p>Where: {{film.location}}</p>
-				</li>
-			</ul>
 		
-			<pre>{{films | json}}</pre>
-		</div>
+		<div ng-view></div>
 		
-	<script src="components/angular/angular.min.js"></script>
-	<script src="js/index.min.js"></script>
 	</body>
 </html>
