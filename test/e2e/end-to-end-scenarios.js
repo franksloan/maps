@@ -46,13 +46,22 @@ describe('World Maps', function() {
     });
   });
 
-  describe('Film view', function() {
+  describe('Film detail view', function() {
     beforeEach(function() {
       browser.get('#/main/films/the-beach');
     });
 
     it('should display placeholder with filmId', function(){
       expect(element(by.binding('film.title')).getText()).toBe('The Beach');
+    });
+  });
+  describe('Food detail view', function() {
+    beforeEach(function() {
+      browser.get('#/main/food/chicken-korma');
+    });
+
+    it('should display placeholder with filmId', function(){
+      expect(element(by.binding('food.name')).getText()).toBe('Chicken korma');
     });
   });
 });
