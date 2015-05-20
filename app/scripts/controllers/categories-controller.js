@@ -10,10 +10,6 @@ var wmCategoryItem = require('./../directives/wm-category-item');
 
 module.exports = categoryController.controller('CatCtrl', ['$scope', '$http',
 		function($scope, $http) {
-			$scope.testVar = {
-				exclamation: 'Woooop',
-				warning: 'Please do not'
-			};
 			$http.get('categories.json').success(function(data){
 				$scope.categories = data;
 			});
