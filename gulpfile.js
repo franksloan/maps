@@ -43,7 +43,7 @@ gulp.task('browserify', function(){
 
 gulp.task('watch', ['lint'], function(){
 	var writeError = function(){
-
+		console.log('err');
 	};
 	//watch for any changes to js files whilst running
 	gulp.watch(['app/scripts/*.js', 'app/scripts/**/*.js'],[

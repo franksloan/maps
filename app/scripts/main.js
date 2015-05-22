@@ -5,27 +5,33 @@
 var CatCtrl = require('./controllers/categories-controller');
 var FilmCtrl = require('./controllers/film-detail-controller');
 var FoodCtrl = require('./controllers/food-detail-controller');
-// var InfoShowController = require('./controllers/info-show-controller');
-// var wmCategorySelect = require('./directives/wm-category-select');
-// var wmCategoryItem = require('./directives/wm-category-item');
 
 var mapsApp = angular.module('WorldMaps', [
 	'ngRoute',
 	'categoryController',
 	'filmController',
-	'foodController']);
+	'foodController',
+	]);
 mapsApp.config(['$routeProvider',
 	function($routeProvider){
 		$routeProvider.
-			when('/main', {
-				templateUrl: 'views/maps-main.html',
-				controller: 'CatCtrl'
+			when('/', {
+				templateUrl: 'views/food.html',
+				controller: 'FoodCtrl'
 			}).
-			when('/main/films/:filmId', {
+			when('/films/', {
+				templateUrl: 'views/film.html',
+				controller: 'FilmCtrl'
+			}).
+			when('/food/', {
+				templateUrl: 'views/food.html',
+				controller: 'FoodCtrl'
+			}).
+			when('/films/:filmId', {
 				templateUrl: 'views/film-detail.html',
 				controller: 'FilmCtrl'
 			}).
-			when('/main/food/:foodId', {
+			when('/food/:foodId', {
 				templateUrl: 'views/food-detail.html',
 				controller: 'FoodCtrl'
 			}).
@@ -38,15 +44,12 @@ mapsApp.config(['$routeProvider',
 			// 	controller: 'InfoCtrl'
 			// }).
 			otherwise({
-				redirectTo: '/main'
+				redirectTo: 'main/'
 			});
 
 	}
 	]);
-// mapsApp.controller('CatCtrl', ['$scope', '$http', CategoriesController]);
-// mapsApp.controller('InfoCtrl', ['$scope', '$http', InfoShowController]);
-// mapsApp.directive('wmCategorySelect', wmCategorySelect);
-// mapsApp.directive('wmCategoryItem', wmCategoryItem);
+
 
 
 })();
