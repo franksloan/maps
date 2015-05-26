@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+
+	<style>
+		#map {
+			max-height: 650px;
+			display: inline-block;
+			margin: 0 auto;
+			border-width: 1.5px;
+			border-color: #333;
+			border-style: solid;
+			overflow: hidden;
+			max-width: 900px;
+		}
+		svg {
+			position: relative;
+		}
+		.country {
+		  fill: #ccc;
+		  stroke: #fff;
+		  stroke-width: .5px;
+		  stroke-linejoin: round;
+		}
+		.graticule {
+		  fill: none;
+		  /*stroke: #000;
+		  stroke-opacity: .3;
+		  stroke-width: .5px;*/
+		}
+
+		.graticule.outline {
+		  stroke: #333;
+		  stroke-opacity: 1;
+		  stroke-width: 1.5px;
+		}
+	</style>
+	<title>Interactive maps</title>
+	<body>
+		<div id="map">
+		</div>
+  	<script src="http://d3js.org/d3.v3.min.js"></script>
+  	
+	<script src="http://d3js.org/topojson.v1.min.js"></script>
+	<script>
+		var width = 1000,
+    		height = 750;
+
+    	var projection = d3.geo.mercator()
+	    	.center([0, 0]),
+	    	//.scale(150)
+	    	//.translate([width/2.25, height/2.1]),
+		    graticule = d3.geo.graticule();
+			
+		var zoom = d3.behavior.zoom()
+			.translate([width/2.25, height/2.1])
+			.scale(150)
+			.scaleExtent([150, 1200])
+			.on("zoom", zoomed);
+
+		var svg = d3.select("#map").append("svg")
+    		.attr("width", width)
+    		.attr("height", height)
+			.append("g");
+			
+    	var g = svg.append("g");
+		
+    	var path = d3.geo.path()
+    		.projection(projection);
+		
+		svg.call(zoom)
+			.call(zoom.event);
+		
+		function zoomed() {
+			projection
+				.translate(zoom.translate())
+				.scale(zoom.scale());
+
+			g.selectAll("path")
+			.attr("d", path);
+		}
+		
+		d3.json("world.json", function(error, world) {
+  			if (error) return console.error(error);
+  			var countries = topojson.feature(world, world.objects.countries).features;
+			g.append("path")
+				.datum(graticule)
+				.attr("class", "graticule")
+				.attr("d", path);
+
+			g.append("path")
+				.datum(graticule.outline)
+				.attr("class", "graticule outline")
+				.attr("d", path);
+  			
+			g.selectAll(".country")
+		      .data(countries)
+			  .enter().insert("path", ".graticule")
+		      .attr("class", "country")
+		      .attr("id", function(j){
+		      	return j.id;
+		      })
+		      .attr("d", path)
+			  .on("mouseover", function(d){
+				d3.select(this).style("fill", "#3cc");
+			  })
+			  .on("mouseout", function(d){
+				d3.select(this).style("fill", "#ccc");
+			  });
+  				
+		});
+		
+		d3.select(self.frameElement).style("height", height + "px");
+	</script>
+	
+</body>

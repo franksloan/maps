@@ -44,7 +44,7 @@ mapsApp.config(['$routeProvider',
 			// 	controller: 'InfoCtrl'
 			// }).
 			otherwise({
-				redirectTo: 'main/'
+				redirectTo: '/'
 			});
 
 	}

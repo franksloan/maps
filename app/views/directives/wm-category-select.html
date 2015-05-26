@@ -3,6 +3,6 @@
 	Search: <input ng-model="query">
 	<h4>{{chosenCategory}}</h4>
 	<ul class="list-group">
-		<wm-category-item ng-repeat="category in categories | filter: query" category="category" ng-click="setCategory()"></wm-category-item>
+		<wm-category-item ng-repeat="category in categories | filter: query" category="category"></wm-category-item>
 	</ul>
 </div>
