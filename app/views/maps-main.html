@@ -3,11 +3,14 @@
 	<h3>Clickable</h3>
 	<wm-category-select></wm-category-select>
 </div>
-<div class="well col-md-9">
+
+<div class="well col-md-9" ng-controller="MapCtrl">
+	<wm-map></wm-map>
+</div>
+
+<div>
 
 	<div ng-view></div>
-
-	
 
 	<!-- <ul class="info list-group" ng-controller="FilmCtrl">
 	<li ng-repeat="film in films" class="thumbnail">

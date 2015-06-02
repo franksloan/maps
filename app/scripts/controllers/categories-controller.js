@@ -1,6 +1,4 @@
 var categoryController = angular.module('categoryController', []);
-// var FoodCtrl = require('./food-detail-controller');
-// var FilmCtrl = require('./film-detail-controller');
 
 //get directives
 var wmCategorySelect = require('./../directives/wm-category-select');
@@ -20,12 +18,7 @@ module.exports = categoryController
 				console.log('hmmph');
 				Category.setCategory('films.json');
 			};
-			// $scope.setCategory = function(category){
-			// 	$scope.chosenCategory = category.title;
-			// };
 		}
 	])
-// .controller('FoodCtrl', ['$scope', '$http', FoodCtrl])
-// .controller('FilmCtrl', ['$scope', '$http', FilmCtrl])
 .directive('wmCategorySelect', wmCategorySelect)
 .directive('wmCategoryItem', wmCategoryItem);

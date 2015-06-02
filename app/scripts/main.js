@@ -5,12 +5,14 @@
 var CatCtrl = require('./controllers/categories-controller');
 var FilmCtrl = require('./controllers/film-detail-controller');
 var FoodCtrl = require('./controllers/food-detail-controller');
+var MapCtrl = require('./controllers/map-controller');
 
 var mapsApp = angular.module('WorldMaps', [
 	'ngRoute',
 	'categoryController',
 	'filmController',
 	'foodController',
+	'mapController'
 	]);
 mapsApp.config(['$routeProvider',
 	function($routeProvider){
@@ -49,7 +51,4 @@ mapsApp.config(['$routeProvider',
 
 	}
 	]);
-
-
-
 })();
