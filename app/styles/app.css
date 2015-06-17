@@ -17,18 +17,12 @@ div.tooltip {
 }
 
 #map {
-	max-height: 650px;
-	display: inline-block;
-	margin: 0 auto;
-	border-width: 1.5px;
-	border-color: #333;
-	border-style: solid;
-	overflow: hidden;
-	max-width: 900px;
+  background-color: #D6E3FF;
 }
+
 .country {
-  fill: #ccc;
-  stroke: #fff;
+  fill: #eee;
+  stroke: #111;
   stroke-width: 0.5px;
   stroke-linejoin: round;
 }
@@ -37,6 +31,51 @@ div.tooltip {
   stroke: #000;
   stroke-width: .5px;
 }
-button {
-	padding: 10px;
+.well {
+  background-color: #eee;
+}
+
+.holder {
+  background-color: #eee;
+  margin-left: 2.5px;
+  width: 70%;
+  float: left;
+  text-align: center;
+}
+
+#zoomin {
+  width: inherit;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  font-weight: bold;
+  font-size: 18px;
+  font-family: 'Lucida Console';
+  color: black;
+  background-color: white;
+  line-height: 26px;
+  border-bottom: 1px solid #ccc;
+}
+#zoomout {
+  width: inherit;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  font-weight: bold;
+  font-size: 18px;
+  font-family: 'Lucida Console';
+  color: black;
+  background-color: white;
+  line-height: 26px;
+}
+.zoom-buttons {
+  float: left;
+  display: block;
+  position: absolute;
+  left: 24px;
+  width: 26px;
+  height: 26px;
+  margin-left: 15px;
+  margin-top: 15px;
+  border: 1px;
+  clear: both;
+
 }

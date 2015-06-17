@@ -1,4 +1,4 @@
-var d3Service = function($document, $q, $rootScope){
+var d3Service = function($document, $q, $rootScope, $window){
 	var d = $q.defer();
 	function onScriptLoad(){
 		$rootScope.$apply(function() {d.resolve(window.d3); });

@@ -1,109 +1,93 @@
 var worldMap = function(zoom){
 	//dimensions of view port
-	var width = 1000,
-		height = 700;
+	var margin = {top:25, right: 30, bottom: 30, left: 25},
+		width = parseInt(d3.select('.holder').style('width'), 10),
+		width = width - margin.left - margin.right,
+		height = width * 0.5;
+
 	var map = {};
-	var projection = d3.geo.mercator()
-    	.translate([width/2, height/2])
-    	.scale((width - 1) / 2 / Math.PI);
-		
+	map.projection = d3.geo.mercator()
+    	.translate([width/2, height/1.5])
+    	.scale((width - 1) / 2 / Math.PI);		
 
-	var path = d3.geo.path()
-		.projection(projection);
-	var tooltip;
-	var svg;
-	// var g;
+	map.path = d3.geo.path()
+		.projection(map.projection);
 
-	map.render = function(element, zoom){
-		svg = d3.select(element).append("svg")
+	map.render = function(element, zoom, countries){
+		map.svg = d3.select(element).append("svg")
     		.attr("width", width)
     		.attr("height", height)
+    		.attr("id", "map")
 			.append("g");
 			
-    	map.g = svg.append("g");
+    	map.g = map.svg.append("g");
 
     	//add viewport rectangle as overlay
-    	svg.append("rect")
+    	map.svg.append("rect")
     		.attr("class", "overlay")
     		.attr("width", width)
     		.attr("height", height);
 
-    	svg.call(zoom).call(zoom.event);
-
-    	map.getData();
-    	// map.setZoom();
-		
+    	map.svg.call(zoom).call(zoom.event);
+    	
+    	map.setData(countries);		
 	};
 
-	map.getData = function(){
+	map.setData = function(countries){
 		//get data to display the map
-		d3.json("world.json", function(error, world) {
-  			if (error) return console.error(error);
-  			var countries = topojson.feature(world, world.objects.countries).features;
-
-			map.g.selectAll("path")
-			.attr("d", path);
-  			
-			map.g.selectAll(".country")
-		      .data(countries)
-			  .enter().append("path")
-		      .attr("class", "country")
-		      .attr("id", function(j){
-		      	return j.id;
-		      })
-		      .attr("d", path)
-			  .on("mouseover", function(d){
-				d3.select(this).style("fill", "#3cc");
-				tooltip.style("left", (d3.event.pageX + 5) + "px")
-				    .style("top", (d3.event.pageY - 5) + "px")
-				    .transition().duration(300)
-				    .style("opacity", 1)
-				    .style("display", "block")
-				    .text(this.id);
-			  })
-			  //if moving out of a country and not into another
-			  //don't want to see the tooltip
-			  .on("mouseout", function(d){
-				d3.select(this).style("fill", "#ccc");
-				tooltip.style("display", "none");
-			  });
+		map.g.selectAll("path")
+		.attr("d", map.path);
+			
+		map.g.selectAll(".country")
+	      .data(countries)
+		  .enter().append("path")
+	      .attr("class", "country")
+	      .attr("id", function(j){
+	      	return j.id;
+	      })
+	      .attr("d", map.path)
+		  .on("mouseover", function(d){
+			d3.select(this).style("fill", "#66D166");
+			map.tooltip.style("left", (d3.event.pageX + 5) + "px")
+			    .style("top", (d3.event.pageY - 5) + "px")
+			    .transition().duration(300)
+			    .style("opacity", 1)
+			    .style("display", "block")
+			    .text(this.id);
+		  })
+		  //if moving out of a country and not into another
+		  //don't want to see the tooltip
+		  .on("mouseout", function(d){
+			d3.select(this).style("fill", "#eee");
+			map.tooltip.style("display", "none");
+		  });
   				
-		});
-	}
-
-	
-
-	//zoom or pan on map
-	map.zoomed = function() {
-		console.log(zoom);
-		var tra = zoom.translate(),
-			sca = zoom.scale();
-		
-		g.attr("transform", 
-			"translate("+tra+") " +
-			"scale("+sca+")"
-			);			
 	}
 
 	map.setTooltips = function(){
 		//create tooltip which can be seen when hovering over country
-		tooltip = d3.select("body").append("div")
+		map.tooltip = d3.select("body").append("div")
 		  	  .attr("class", "tooltip")
 		  	  .style("opacity", 1e-6)
 		  	  .style("background", "rgba(250,250,250,.7)");
 
-		tooltip.append("span").attr("id", "countryName");
+		map.tooltip.append("span").attr("id", "countryName");
 	}
 
 	map.setButtons = function(element){
 		//create tooltip which can be seen when hovering over country
-		zoominButton = d3.select(element).append("button")
+		d3.select(element).append("div")
+			.attr("class", "zoom-buttons");
+
+		zoominButton = d3.select(".zoom-buttons").append("button")
 		  	  .attr("id", "zoomin")
+		  	  // .attr("class", "zoom-buttons")
 		  	  .style("display", "inline-block")
 		  	  .text('+');
 
-		zoomoutButton = d3.select(element).append("button")
+		zoomoutButton = d3.select(".zoom-buttons").append("button")
 		  	  .attr("id", "zoomout")
+		  	  // .attr("class", "zoom-buttons")
 		  	  .style("display", "inline-block")
 		  	  .text('-');	
 	}

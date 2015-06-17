@@ -18,8 +18,16 @@ module.exports = function(config) {
       'public/components/angular/angular.js',
       'public/components/angular-mocks/angular-mocks.js',
       'public/components/angular-route/angular-route.min.js',
+      // 'public/world.json',
+      "http://d3js.org/d3.v3.min.js",
+      "http://d3js.org/topojson.v1.min.js",
       'public/js/*.js',
-      'test/**/*.js'
+      // 'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
+      'test/**/*.js',
+      {pattern: 'public/world.json',
+      watched: true,
+      served: true,
+      included: false}
     ],
 
 
