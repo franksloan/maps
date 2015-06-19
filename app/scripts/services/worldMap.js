@@ -13,7 +13,7 @@ var worldMap = function(zoom){
 	map.path = d3.geo.path()
 		.projection(map.projection);
 
-	map.render = function(element, zoom, countries){
+	map.render = function(element, zoom, countries, Category, ngDialog){
 		map.svg = d3.select(element).append("svg")
     		.attr("width", width)
     		.attr("height", height)
@@ -30,14 +30,14 @@ var worldMap = function(zoom){
 
     	map.svg.call(zoom).call(zoom.event);
     	
-    	map.setData(countries);		
+    	map.setData(countries, Category, ngDialog);		
 	};
 
-	map.setData = function(countries){
+	map.setData = function(countries, Category, ngDialog){
 		//get data to display the map
 		map.g.selectAll("path")
 		.attr("d", map.path);
-			
+		var count = 0;
 		map.g.selectAll(".country")
 	      .data(countries)
 		  .enter().append("path")
@@ -60,6 +60,12 @@ var worldMap = function(zoom){
 		  .on("mouseout", function(d){
 			d3.select(this).style("fill", "#eee");
 			map.tooltip.style("display", "none");
+		  })
+		  .on("click", function(){
+		  	var countryInfo = Category.getCategory(this.id);
+		  	ngDialog.open({
+                    template: 'views/food.html'
+            });
 		  });
   				
 	}

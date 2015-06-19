@@ -33,12 +33,12 @@ div.tooltip {
 }
 .well {
   background-color: #eee;
+  margin: 0.5%;
 }
 
 .holder {
   background-color: #eee;
-  margin-left: 2.5px;
-  width: 70%;
+  width: 72%;
   float: left;
   text-align: center;
 }

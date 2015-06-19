@@ -14,10 +14,14 @@ module.exports = categoryController
 			$http.get('categories.json').success(function(data){
 				$scope.categories = data;
 			});
-			$scope.setCategory = function(){
-				console.log('hmmph');
-				Category.setCategory('films.json');
+			$scope.count = 0;
+			$scope.setCategory = function(cat){
+				$scope.chosenCategory = cat;
+				Category.setCategory(cat);
 			};
+			$scope.getCategory = function(){
+				console.log(Category.catData);
+			}
 		}
 	])
 .directive('wmCategorySelect', wmCategorySelect)

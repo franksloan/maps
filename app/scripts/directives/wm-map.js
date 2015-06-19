@@ -1,5 +1,5 @@
 var d3WorldMap = require('./../services/worldMap');
-var wmMap = function(d3Service, $window){
+var wmMap = function(d3Service, Category, $window, ngDialog){
 	return {
 		restrict: 'EA',
 		link: function(scope, ele, attrs){
@@ -18,8 +18,7 @@ var wmMap = function(d3Service, $window){
 						"translate("+tra+") " +
 						"scale("+sca+")"
 					);			
-				}
-				
+				};
 				map.setTooltips();
 				map.setButtons(ele[0]);
 				var zoom = d3.behavior.zoom()
@@ -29,7 +28,7 @@ var wmMap = function(d3Service, $window){
 				scope.$watch('countries', function(countries){
 					
 					if(countries !== undefined){
-						map.render(ele[0], zoom, countries);
+						map.render(ele[0], zoom, countries, Category, ngDialog);
 					}
 				});
 				

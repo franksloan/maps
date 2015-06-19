@@ -18,8 +18,8 @@ mapsApp.config(['$routeProvider',
 	function($routeProvider){
 		$routeProvider.
 			when('/', {
-				templateUrl: 'views/food.html',
-				controller: 'FoodCtrl'
+				templateUrl: 'views/film.html',
+				controller: 'FilmCtrl'
 			}).
 			when('/films/', {
 				templateUrl: 'views/film.html',

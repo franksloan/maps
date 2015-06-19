@@ -1,10 +1,12 @@
 [
 	{
+		"country": "Mexico",
 		"id": "chilli-con-carne",
 		"name": "Chilli con Carne",
 		"ingredients": ["Minced beef", "tomato", "kidney beans"]
 	},
 	{
+		"country": "India",
 		"id": "chicken-korma",
 		"name": "Chicken korma",
 		"ingredients": ["Chicken", "Curry sauce"]
