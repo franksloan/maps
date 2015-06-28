@@ -6,9 +6,9 @@
 		<p>Where: {{film.location}}</p>
 	</li>
 </ul> -->
-<div>
-	<a href="#/films/{{film.id}}" class='thumb'><img ng-src="{{film.imageUrl}}"></a>
-	<a href="#/films/{{film.id}}">{{film.title}}</a>
-	<p>Actors:<span ng-repeat="actor in film.actors"> {{actor}}</span></p>
-	<p>Where: {{film.location}}</p>
+<div class="info">
+	<a href="#/films/{{films.id}}" class='thumb'><img ng-src="{{films.imageUrl}}"></a>
+	<a href="#/films/{{films.id}}">{{films.title}}</a>
+	<p><b>Actors:</b><span ng-repeat="actor in films.actors"> {{actor}}</span></p>
+	<p><b>Where:</b> {{films.country}}</p>
 </div>

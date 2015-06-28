@@ -13,11 +13,13 @@ module.exports = categoryController
 		function($scope, $http, Category) {
 			$http.get('categories.json').success(function(data){
 				$scope.categories = data;
+				$scope.chosenCategory = 'food';
+				Category.setCategoryData('food');
 			});
 			$scope.count = 0;
 			$scope.setCategory = function(cat){
 				$scope.chosenCategory = cat;
-				Category.setCategory(cat);
+				Category.setCategoryData(cat);
 			};
 			$scope.getCategory = function(){
 				console.log(Category.catData);

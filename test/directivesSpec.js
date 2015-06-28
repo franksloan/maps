@@ -14,56 +14,69 @@ describe('d3 directives', function(){
 			expect(d3Service).toBeDefined();
 		});
 	})
-	describe('link', function(){
-		var data, $q, $rootScope, $compile, $window, html, element;		
+	describe('d3', function(){
+		var data, $q, $rootScope, $compile, $window, $httpBackend, $controller, html, element, $scope, ctrl;		
 
 		beforeEach(function(){
 			mockd3Service = {};
+			mockMapService = {};
 			module('WorldMaps');
 
+			// mockMapService.setButtons = function(){
+			// 	console.log('bty');
+			// }
+
 			module(function($provide){
-				$provide.value('d3Service', mockd3Service)
+				$provide.value('d3Service', mockd3Service);
+				$provide.value('WorldMap', mockMapService);
 			});
 
-			inject(function($injector,_$compile_, _$rootScope_, _$window_, _$q_){
-				// scope = $rootScope.$new();
-				// d3ServiceMock = _d3ServiceMock_;
-				// console.log(d3ServiceMock);
-				// elem = angular.element(html);
-				// isolated = elem.isolateScope();
-				// compiled = $compile(elem);
-				// compiled(scope);
-				// scope.$digest();
-				
+			inject(function($injector,_$compile_, _$rootScope_, _$window_, _$q_, _$controller_, _$httpBackend_, _d3Service_){
 				
 				$window = _$window_;
 				$compile = _$compile_;
 				$rootScope = _$rootScope_;
+				$controller = _$controller_;
 				$q = _$q_;
+				$httpBackend = _$httpBackend_;
+				
+				// load in some mock data for http request
+				$httpBackend.expectGET('world.json')
+				.respond({arcs: ['abc'],
+							objects: {countries: {geometries: [{arcs:[], id: "Netherlands", type: "Polygon"}]}},
+							transform: {scale: [], translate: []},
+							type: "Topology"}
+							);
+				
+				$scope = $rootScope.$new();
+				ctrl = $controller('MapCtrl', {'$scope' : $scope});
+
 			});
+
 			mockd3Service.d3 = function(){
 				var deferred = $q.defer();
 				deferred.resolve($window.d3);
-				// console.log(deferred.promise);
+				
 				return deferred.promise;
 			}
-
 		});
 
-		it('created', function(){
+		it('created', inject(function($controller){
+			console.log(ctrl);
+			$httpBackend.flush();
 			//check d3 service is running
-			html = '<wm-map data="testData"></wm-map>';
+			html = '<wm-map></wm-map>';
 			element = angular.element(html);
 			element = $compile(html)($rootScope);
-			$rootScope.testData = 'caaca';
 			$rootScope.$digest();
 
-			// console.log(element.isolateScope().$$listeners);
-			// console.log(mockd3Service.d3());
+			expect($scope.countries).toBeUndefined();
 			
-			console.log(element);
-			expect(element).toBeDefined();
-		});
+			
+
+			console.log($scope);
+			
+		}));
 		
 	})		
 

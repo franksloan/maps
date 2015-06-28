@@ -18,6 +18,7 @@ module.exports = function(config) {
       'public/components/angular/angular.js',
       'public/components/angular-mocks/angular-mocks.js',
       'public/components/angular-route/angular-route.min.js',
+      'public/components/ngDialog/js/ngDialog.min.js',
       // 'public/world.json',
       "http://d3js.org/d3.v3.min.js",
       "http://d3js.org/topojson.v1.min.js",

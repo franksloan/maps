@@ -4,6 +4,8 @@
 			<p><b>Ingredients:</b><span ng-repeat="ingredient in recipe.ingredients"> {{ingredient}}</span></p>
 		</li>
 </ul> -->
-<div>
-	<p>Modal pop up</p>
+<div class="info">
+	<a href="#/food/{{recipe.id}}">{{food.name}}</a>
+	<p><b>Ingredients:</b><span ng-repeat="ingredient in food.ingredients"> {{ingredient}}</span></p>
+	<p><b>Origin:</b> {{food.country}}</p>
 </div>

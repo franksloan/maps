@@ -1,8 +1,0 @@
-<ul class="info list-group">
-	<li ng-repeat="film in films" class="thumbnail">
-		<a href="#/films/{{film.id}}" class='thumb'><img ng-src="{{film.imageUrl}}"</a>
-		<a href="#/films/{{film.id}}">{{film.title}}</a>
-		<p>Actors:<span ng-repeat="actor in film.actors"> {{actor}}</span></p>
-		<p>Where: {{film.location}}</p>
-	</li>
-</ul>
