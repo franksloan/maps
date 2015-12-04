@@ -1,7 +1,9 @@
 var worldMapService = function(d3Service){
 	var map = {};
+	
 	d3Service.d3().then(function(d3){
 		//dimensions of view port
+
 		var margin = {top:25, right: 30, bottom: 30, left: 25},
 			width = parseInt(d3.select('.holder').style('width'), 10),
 			width = width - margin.left - margin.right,
