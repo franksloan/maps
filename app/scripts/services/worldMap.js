@@ -65,23 +65,30 @@ var worldMapService = function(d3Service){
 				map.tooltip.style("display", "none");
 			  })
 			  .on("click", function(){
+			  	var time1 = new Date().getTime();
 			  	d3.select(".overlay").style("fill", "#444")
 			  						.style("opacity", 0.5);
 	    		
 			  	var countryInfo = Category.getCountryData(this.id);
-			  	ngDialog.open({
+			  	console.log(this.id);
+			  	countryInfo.then(function(data){
+			  		console.log((new Date().getTime() - time1)/1000);
+			  		ngDialog.open({
 	                    template: 'views/' + Category.name + '.html',
 	                    overlay: false,
 	                    appendTo: '.map-directive',
 	                    controller: ['$scope', function($scope) {
         					// controller logic
-        					$scope[Category.name] = countryInfo;
+        					console.log(Category.name);
+        					$scope[Category.name] = data;
     					}]
-	            })
-	            .closePromise.then(function(data){
-	            	d3.select(".overlay").style("fill", "")
+	            	})
+	            	.closePromise.then(function(data){
+	            		d3.select(".overlay").style("fill", "")
 			  						.style("opacity", 0);
-	            })
+	            	});
+			  	});
+			  	
 			  });
 	  				
 		}

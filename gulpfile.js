@@ -14,7 +14,8 @@ var gulp = require('gulp'),
     livereload = require('connect-livereload'),
     livereloadport = 35729,
     port = 5000,
-    minifyCSS = require('gulp-minify-css');
+    minifyCSS = require('gulp-minify-css'),
+    startServer = require('./server/server');
 
 //JSHint task - check for js code quality
 gulp.task('lint', function(){
@@ -35,7 +36,7 @@ gulp.task('browserify', function(){
 	//put all js into one file
 	.pipe(concat('index.js'))
 	.pipe(rename({suffix: '.min'}))
-	.pipe(uglify())
+	// .pipe(uglify())
 	//output into folder
 	.pipe(gulp.dest('public/js'))
 	.pipe(refresh(lrserver));
@@ -60,8 +61,8 @@ gulp.task('watch', ['lint'], function(){
 
 //move html into served folder
 gulp.task('views', function(){
-	gulp.src('app/index.html')
-	.pipe(gulp.dest('public/'));
+	// gulp.src('app/index.html')
+	// .pipe(gulp.dest('public/'));
 
 	gulp.src('app/views/**/*')
 	.pipe(gulp.dest('public/views/'))
@@ -79,24 +80,35 @@ gulp.task('css', function() {
 
 // set up the server to reload any updates
 // while running the app
-var server = express();
-// reload
-server.use(livereload({port: livereloadport}));
-// folder to use for root
-server.use(express.static('./public'));
+// var server = express();
+// // reload
+// server.use(livereload({port: livereloadport}));
 
-server.all('/*', function(req, res){
-	res.sendFile('index.html', { root: 'public' });
-});
+// DEVELOPMENT
+// server.use(express.static('./app'));
+
+// server.all('/*', function(req, res){
+// 	res.sendFile('index.html', { root: 'app' });
+// });
+
+// LIVE folder to use for root
+// server.use(express.static('./public'));
+
+// server.all('/*', function(req, res){
+// 	res.sendFile('index.html', { root: 'public' });
+// });
 
 gulp.task('dev', function() {
 	console.log('running');
 	// start the server
-	server.listen(port);
-	// run live reload
-	lrserver.listen(livereloadport);
+	// server.listen(port);
+	// // run live reload
+	// lrserver.listen(livereloadport);
 	// run watch to take care of any changes made
+	startServer();
 	gulp.start('watch');
 });
 
 gulp.task('default', ['lint', 'browserify', 'views', 'css', 'dev']);
+
+

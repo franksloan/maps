@@ -11,12 +11,17 @@ var categoryService = function($http){
 			});
 	};
 	this.getCountryData = function(country){
-		//find the clicked on country's data
 		for(var i = 0; i < this.catData.length; i++){
 			if(this.catData[i].country === country){
-				return this.catData[i];
+				console.log(this.catData[i]);
+				// return this.catData[i];
 			}
 		}
+		//find the clicked on country's data
+		return $http.get('/api/films/'+country).then(function(response){
+			console.log(response.data[0]);
+			return response.data[0];
+		});	
 	};
 };
 module.exports = categoryService;
