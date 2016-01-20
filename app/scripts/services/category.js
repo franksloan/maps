@@ -18,9 +18,10 @@ var categoryService = function($http){
 			}
 		}
 		//find the clicked on country's data
-		return $http.get('/api/films/'+country).then(function(response){
-			console.log(response.data[0]);
-			return response.data[0];
+		console.log(this.name);
+		return $http.get('/api/'+this.name+'/'+country).then(function(response){
+			console.log(response.data);
+			return response.data;
 		});	
 	};
 };

@@ -4,25 +4,33 @@ var request = require("request"),
 
 var scraper = function(countryName, call){
 	var filmInfo;
-	var time1 = new Date().getTime();
 	request("http://www.imdb.com/country/", function(error, response, html){
-		console.log('after 1st request: ' + (new Date().getTime() - time1)/1000	);
+		
 		var $ = cheerio.load(html, {
 				normalizeWhitespace:true
 			});
 		
 		$('td').each(function(i, elem){
-			console.log(i +': ' + (new Date().getTime() - time1)/1000	);
+			
 			if($(elem).children().text().toLowerCase().trim() == countryName){
 				// Get the country code
 				var countryCode = $(elem).children().attr('href');
-
+				
 				// Use the country code to get data for films from that country
 				countryPage(countryCode, function(filmData){
 					// only print one for now
 					call(filmData);
 					
 				});
+				return false;
+			} else if(countryName === 'united states of america') {
+				console.log('Country not found');
+				countryPage('/country/us', function(filmData){
+					// only print one for now
+					call(filmData);
+					
+				});
+				return false;
 			}				
 			
 		})
@@ -30,12 +38,13 @@ var scraper = function(countryName, call){
 }
 
 var countryPage = function(country, callback){
+		
 		var filmsArrayForChosenCountry = [];
 		// Load the country page to scrape the 
 		request(
 			"http://www.imdb.com"+country, 
 			function(error, response, html){
-						
+				
 				var $ = cheerio.load(html, {
 					normalizeWhitespace:true
 				});
@@ -44,14 +53,9 @@ var countryPage = function(country, callback){
 				var suf = $('.results .detailed').slice(Math.floor(Math.random()*10));
 				var urlFilmSuffix = suf.children().children().attr('href');
 				var filmId = urlFilmSuffix.replace('/title/', '').replace('/','');
-				getExternalInfo("http://www.omdbapi.com/?i="+filmId, function(data){						
+				getExternalInfo("http://www.omdbapi.com/?i="+filmId, function(filmForChosenCountry){						
 						
-						filmsArrayForChosenCountry.push(data);
-						
-						if(filmsArrayForChosenCountry.length == 1){
-							
-							callback(filmsArrayForChosenCountry);
-						}
+						callback(filmForChosenCountry);
 					});
 				//grabs a film
 				// $('.results .detailed').each(function(i, elem){

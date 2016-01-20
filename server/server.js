@@ -1,7 +1,8 @@
 var express = require('express'),
 	lrserver = require('tiny-lr')(),
 	livereload = require('connect-livereload'),
-	router = require('./router');
+	router = require('./router'),
+	countryInfoAccess = require('./countryAccess');
 	
 
 var server = express();
