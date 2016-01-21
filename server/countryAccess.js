@@ -4,8 +4,7 @@ var ObjectId = require('mongodb').ObjectID;
 var insertCountryDocument = function(db, options, callback){
 	db.collection('countryInfo').insertOne(
 	{
-		"countryName" : options.countryName,
-		"films": [options.data]
+		"countryName" : options.countryName
 	}, function(err, result){
 		assert.equal(err, null);
 		console.log("Inserted a document into countryInfo.");

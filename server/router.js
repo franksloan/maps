@@ -7,7 +7,6 @@ var router = function(expressRouter){
 	// reload
 	expressRouter.use(function(req, res, next){
 		
-		console.log('it is working');
 		req.options = {};
 		next();
 	});
@@ -31,8 +30,9 @@ var router = function(expressRouter){
 			mongoAccess(req.options, req.countryAccess.findCountryDocument,
 				// this is passed back from 
 				function(countryMatchFound){
-					console.log(countryMatchFound);
+					
 					if(countryMatchFound){
+						console.log('MATCH');
 						// the country exists so move onto the next route to find film
 						next('route');
 					} else {
@@ -46,7 +46,6 @@ var router = function(expressRouter){
 			// Create the country
 			mongoAccess(req.options, req.countryAccess.insertCountryDocument,
 				function(){
-					console.log('country inserted');
 					next();
 				});
 		});
@@ -67,32 +66,30 @@ var router = function(expressRouter){
 							if(data == null){
 								console.log('Nothing returned from scraper' + data);
 							}
-							// req.options.data = data;
-							// next();
+							req.options.data = data;
+							mongoAccess(req.options, req.filmsAccess.insertFilm,
+								function(){
+									console.log('film inserted');
+								})
 						});
 					} else {
+						console.log('called here');
 						// get a film using the scraper and then send it in the response
 						scraper(req.options.countryName.toLowerCase(), function(data){
 							if(data == null){
 								console.log('Nothing returned from scraper' + data);
 							}
 							res.json(data);
-							req.options.data = data;
 							// add a film to the db
-							next();
+							req.options.data = data;
+							return mongoAccess(req.options, req.filmsAccess.insertFilm,
+								function(){
+									console.log('film inserted');
+								})
 						});
 					}
 				})
 			
-		});
-
-	// Add a film to the database
-	expressRouter.route('films/:country')
-		.get(function(req, res, next){
-			mongoAccess(req.options, req.countryInfoAccess.insertFilmForCountry,
-				function(){
-					
-				})
 		});
 
 	return expressRouter;

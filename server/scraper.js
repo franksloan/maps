@@ -19,6 +19,7 @@ var scraper = function(countryName, call){
 				// Use the country code to get data for films from that country
 				countryPage(countryCode, function(filmData){
 					// only print one for now
+					console.log('1');
 					call(filmData);
 					
 				});
@@ -54,7 +55,7 @@ var countryPage = function(country, callback){
 				var urlFilmSuffix = suf.children().children().attr('href');
 				var filmId = urlFilmSuffix.replace('/title/', '').replace('/','');
 				getExternalInfo("http://www.omdbapi.com/?i="+filmId, function(filmForChosenCountry){						
-						
+						console.log('2');
 						callback(filmForChosenCountry);
 					});
 				//grabs a film
