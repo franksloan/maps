@@ -71,17 +71,15 @@ var worldMapService = function(d3Service){
 	    		
 			  	var countryInfo = Category.getCountryData(this.id);
 			  	console.log(this.id);
-			  	countryInfo.then(function(data){
-			  		console.log((new Date().getTime() - time1)/1000);
+			  	countryInfo.then(function(countryData){
+			  		
 			  		ngDialog.open({
 	                    template: 'views/' + Category.name + '.html',
 	                    overlay: false,
 	                    appendTo: '.map-directive',
-	                    controller: ['$scope', function($scope) {
-        					// controller logic
-        					console.log(Category.name);
-        					$scope[Category.name] = data;
-    					}]
+	                    controller: 'DialogCtrl',
+	                    data: {'categoryName': Category.name,
+	                			'countryData': countryData}
 	            	})
 	            	.closePromise.then(function(data){
 	            		d3.select(".overlay").style("fill", "")

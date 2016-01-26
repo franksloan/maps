@@ -9,6 +9,8 @@ var topojsonService = require('./../services/topojsonService');
 var categoryService = require('./../services/category');
 var worldMapService = require('./../services/worldMap');
 
+var DialogCtrl = require('./dialog-controller');
+
 module.exports = mapController
 .factory('d3Service', ['$document', '$q', '$rootScope', '$window', d3Service])
 .factory('topojsonService', ['$document', '$q', '$rootScope', '$window', topojsonService])
@@ -25,4 +27,6 @@ module.exports = mapController
 		
 	}
 ])
-.directive('wmMap', ['d3Service', 'Category', '$window', 'ngDialog', 'WorldMap', wmMap]);
+
+.directive('wmMap', ['d3Service', 'Category', '$window', 'ngDialog', 'WorldMap', wmMap])
+.controller('DialogCtrl', ['$scope', '$rootScope', DialogCtrl]);

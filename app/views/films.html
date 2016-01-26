@@ -1,14 +1,11 @@
-<!-- <ul class="info list-group">
-	<li ng-repeat="film in films" class="thumbnail">
-		<a href="#/films/{{film.id}}" class='thumb'><img ng-src="{{film.imageUrl}}"</a>
-		<a href="#/films/{{film.id}}">{{film.title}}</a>
-		<p>Actors:<span ng-repeat="actor in film.actors"> {{actor}}</span></p>
-		<p>Where: {{film.location}}</p>
-	</li>
-</ul> -->
 <div class="info">
-	<a href="#/films/{{films.id}}" class='thumb'><img ng-src="{{films.Poster}}"></a>
-	<a href="#/films/{{films.id}}">{{films.Title}}</a>
-	<p><b>Actors:</b>{{films.Actors}}</p>
+	<a href="http://www.imdb.com/title/{{films.imdbID}}">{{films.Title}}</a>
+	<a href="http://www.imdb.com/title/{{films.imdbID}}" class='thumb'><img ng-src="{{films.Poster}}"></a>
+	<p><b>Actors:</b> {{films.Actors}}</p>
+
 	<p><b>Where:</b> {{films.Country}}</p>
+	<p><b>Year:</b> {{films.Year}}</p>
+	<p>{{films.Plot}}</p>
+	<a ng-click="nextFilm()" ng-show="more">Next</a>
+	<a ng-click="previousFilm()" ng-show="less">Previous</a>
 </div>

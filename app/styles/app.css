@@ -1,14 +1,14 @@
 .thumb {
-  float: left;
+  float: right;
   margin: -0.5em 1em 1.5em 0;
-  padding-bottom: 1em;
-  height: 80px;
-  width: 80px;
+  padding: 1em 1em;
 }
 
 img {
-  width: 80px;
+  max-width: 175px;
 }
+
+a:focus {outline:0 !important;}
 
 div.tooltip {
   position: absolute;
@@ -87,6 +87,7 @@ div.tooltip {
 .info {
   display: inline;
   text-align: left;
+  border: none;
 }
 .tappy {
   display: inline;

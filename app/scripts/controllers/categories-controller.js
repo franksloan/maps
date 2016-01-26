@@ -23,7 +23,22 @@ module.exports = categoryController
 			};
 			$scope.getCategory = function(){
 				console.log(Category.catData);
-			}
+			};
+			$http.get('/api/totalnumbers').then(function(response){
+						console.log(response.data.totalFilms);
+						$scope.total = response.data.totalFilms;
+						console.log($scope.categories[1]);
+						for(var i = 0; i < $scope.categories.length; i++){
+							
+							if($scope.categories[i].title == 'films'){
+								$scope.categories[i].total = response.data.totalFilms;
+							}
+						}
+					});
+			$scope.$on('updateNumber', function(event, args){
+				console.log('updating Numbers')
+				$scope.categories[1].total++;
+			});
 		}
 	])
 .directive('wmCategorySelect', wmCategorySelect)

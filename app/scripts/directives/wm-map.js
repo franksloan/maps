@@ -1,4 +1,3 @@
-
 var wmMap = function(d3Service, Category, $window, ngDialog, WorldMap){
 	return {
 		restrict: 'EA',

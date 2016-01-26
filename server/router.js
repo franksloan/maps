@@ -1,7 +1,8 @@
 var scraper = require('./scraper'),
 	countryAccess = require('./countryAccess'),
 	mongoAccess = require('./mongoAccess'),
-	filmsAccess = require('./filmsAccess');
+	filmsAccess = require('./filmsAccess'),
+	categoryDetailsAccess = require('./categoryDetailsAccess');
 
 var router = function(expressRouter){
 	// reload
@@ -56,41 +57,44 @@ var router = function(expressRouter){
 	expressRouter.route('/films/:country')
 		.get(function(req, res, next){
 			mongoAccess(req.options, req.filmsAccess.selectFilm,
-				function(film){
+				function(films){
 					// does a film exist (if it's not null)
-					if(film){
+					if(films.length > 0){
 						// send a film back in the response
-						res.json(film);
+						res.json(films);
 						// get a film using the scraper
 						scraper(req.options.countryName.toLowerCase(), function(data){
 							if(data == null){
 								console.log('Nothing returned from scraper' + data);
 							}
 							req.options.data = data;
-							mongoAccess(req.options, req.filmsAccess.insertFilm,
-								function(){
-									console.log('film inserted');
-								})
+							mongoAccess(req.options, req.filmsAccess.insertFilm)
 						});
 					} else {
-						console.log('called here');
 						// get a film using the scraper and then send it in the response
 						scraper(req.options.countryName.toLowerCase(), function(data){
 							if(data == null){
 								console.log('Nothing returned from scraper' + data);
 							}
-							res.json(data);
+							console.log(data);
+							films.push(data);
+							res.json(films);
 							// add a film to the db
 							req.options.data = data;
-							return mongoAccess(req.options, req.filmsAccess.insertFilm,
-								function(){
-									console.log('film inserted');
-								})
+							mongoAccess(req.options, req.filmsAccess.insertFilm)
 						});
 					}
 				})
 			
 		});
+
+	expressRouter.route('/totalnumbers/')
+		.get(function(req, res){
+			mongoAccess(null, categoryDetailsAccess().calculateTotals, function(total){
+				console.log('finished total: '+total);
+				res.json({'totalFilms': total});
+			})
+		})
 
 	return expressRouter;
 }
