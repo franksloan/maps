@@ -22,5 +22,12 @@ var categoryService = function($http){
 			return response.data;
 		});	
 	};
+
+	this.getTotalFilms = function(){
+		$http.get('/api/totalfilms').then(function(response){
+			return response.data.totalFilms;
+		})
+}
+
 };
 module.exports = categoryService;

@@ -2,13 +2,22 @@ var scraper = require('./scraper'),
 	countryAccess = require('./countryAccess'),
 	mongoAccess = require('./mongoAccess'),
 	filmsAccess = require('./filmsAccess'),
-	categoryDetailsAccess = require('./categoryDetailsAccess');
+	categoryDetailsAccess = require('./categoryDetailsAccess'),
+	socketsService = require('./socketsService');
 
-var router = function(expressRouter){
+var router = function(expressRouter, io){
+	var obCli = {};
+
+	// obCli.friend = socketsService().connect(io);
+	io.on('connection', function(client){
+		console.log('coonnect');
+		console.log(client);
+	});
 	// reload
 	expressRouter.use(function(req, res, next){
-		
+		console.log('in route');
 		req.options = {};
+		io.sockets.emit("happy", {dat: "ok"});
 		next();
 	});
 
@@ -73,10 +82,10 @@ var router = function(expressRouter){
 					} else {
 						// get a film using the scraper and then send it in the response
 						scraper(req.options.countryName.toLowerCase(), function(data){
-							if(data == null){
+							if(!data){
 								console.log('Nothing returned from scraper' + data);
 							}
-							console.log(data);
+		
 							films.push(data);
 							res.json(films);
 							// add a film to the db
@@ -88,7 +97,7 @@ var router = function(expressRouter){
 			
 		});
 
-	expressRouter.route('/totalnumbers/')
+	expressRouter.route('/totalfilms/')
 		.get(function(req, res){
 			mongoAccess(null, categoryDetailsAccess().calculateTotals, function(total){
 				console.log('finished total: '+total);
@@ -97,6 +106,7 @@ var router = function(expressRouter){
 		})
 
 	return expressRouter;
+	
 }
 
 module.exports = router;

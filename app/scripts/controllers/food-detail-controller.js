@@ -1,7 +1,7 @@
 var foodController = angular.module('foodController', []);
 
 //require services
-var categoryService = require('./../services/category');
+var categoryService = require('./../services/categoryService');
 
 module.exports = foodController
 .service('Category', ['$http', categoryService])

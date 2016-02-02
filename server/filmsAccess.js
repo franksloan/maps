@@ -1,7 +1,8 @@
 var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
-
+var socketsService = require('./socketsService');
 //
+
 var insertFilm = function(db, options){
 	var film = options.data;
 	db.collection('countryInfo').updateOne(
@@ -12,9 +13,34 @@ var insertFilm = function(db, options){
 		"$addToSet": {"films": film }
 	}, function(err, result){
 		assert.equal(err, null);
-		console.log("Inserted a film into " + options.countryName);
-	    
+		// If a film was added (i.e. the film didn't already exist)
+		if(result.result.nModified == 1){
+			socketsService().totalFilms(options.client);
+			console.log("Inserted " + film.Title + " into " + options.countryName);
+		}
 	})
+}
+
+var updateFilmsTotal = function(db){
+	db.collection('countryInfo').update(
+		{ "category": "films"},
+		{ "$inc": {"total": 1}}
+	);
+}
+
+var totalFilms = function(db){
+	var cursor = db.collection('countryInfo').find();
+	var numberOfFilms = 0;
+    cursor.each(function(err, doc) {
+	    assert.equal(err, null);
+	    
+	    if (doc && doc.films) {
+	    	console.log(doc.countryName +': '+ doc.films.length);
+	    	numberOfFilms += doc.films.length;
+        } else if (doc == null) {
+	      	callback(numberOfFilms);
+	    }
+    }); 
 }
 
 //

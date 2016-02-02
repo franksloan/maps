@@ -3,9 +3,11 @@ var express = require('express'),
 	livereload = require('connect-livereload'),
 	router = require('./router'),
 	countryInfoAccess = require('./countryAccess');
-	
 
 var server = express();
+var httpServer = require('http').Server(server);
+var io = require('socket.io')(httpServer);
+var socketsService = require('./socketsService')
 
 var startServer = function(){
 
@@ -14,9 +16,14 @@ var startServer = function(){
 	server.use(livereload({port: 35729}));
 
 	var expressRouter = express.Router();
-	
-	var APIrouter = router(expressRouter);
 
+	
+	// 
+	// socketsService().connect(io, function(){
+		
+	// });
+
+	var APIrouter = router(expressRouter, io);
 	server.use('/api', APIrouter);
 
 	lrserver.listen(35729);
@@ -25,7 +32,7 @@ var startServer = function(){
 		res.sendFile('index.html', { root: 'public' });
 	});
 
-	server.listen(5000);
+	httpServer.listen(5000);
 }
 
 module.exports = startServer;

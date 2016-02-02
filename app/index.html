@@ -8,6 +8,8 @@
   	<link rel="stylesheet" href="components/ngDialog/css/ngDialog.min.css"></link>
   	<link rel="stylesheet" href="components/ngDialog/css/ngDialog-theme-default.min.css"></link>
   	<link rel="stylesheet" href="components/ngDialog/css/ngDialog-theme-plain.min.css"></link>
+  	<script src='/socket.io/socket.io.js'></script>
+  	<script src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
   	<script src="components/angular/angular.min.js"></script>
 	<script src="components/angular-route/angular-route.min.js"></script>
 	<script src="components/ngDialog/js/ngDialog.min.js"></script>
@@ -15,7 +17,7 @@
 </head>
 	<body>
 		
-		<div ng-include="'views/maps-main.html'"></div>
+		<!-- <div ng-include="'views/maps-main.html'"></div> -->
 		<!-- <div ng-view></div> -->
 		<script src="scripts/controllers/categories-controller.js"></script>
 		<script src="scripts/controllers/film-detail-controller.js"></script>
@@ -28,6 +30,6 @@
 		<script src="scripts/main.js"></script>
 		<script src="scripts/services/worldMap.js"></script>
 		<script src="scripts/services/d3Service.js"></script>
-		<script src="scripts/services/category.js"></script>
+		<script src="scripts/services/categoryService.js"></script>
 	</body>
 </html>

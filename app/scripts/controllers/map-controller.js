@@ -6,7 +6,7 @@ var wmMap = require('./../directives/wm-map');
 //require services
 var d3Service = require('./../services/d3Service');
 var topojsonService = require('./../services/topojsonService');
-var categoryService = require('./../services/category');
+var categoryService = require('./../services/categoryService');
 var worldMapService = require('./../services/worldMap');
 
 var DialogCtrl = require('./dialog-controller');

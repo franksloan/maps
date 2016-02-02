@@ -5,25 +5,33 @@ var wmCategorySelect = require('./../directives/wm-category-select');
 var wmCategoryItem = require('./../directives/wm-category-item');
 //
 //require services
-var categoryService = require('./../services/category');
+var categoryService = require('./../services/categoryService');
 
 module.exports = categoryController
 .service('Category', ['$http', categoryService])
 .controller('CatCtrl', ['$scope', '$http', 'Category',
 		function($scope, $http, Category) {
+
 			$http.get('categories.json').success(function(data){
 				$scope.categories = data;
 				$scope.chosenCategory = 'food';
 				Category.setCategoryData('food');
 			});
 			$scope.count = 0;
-			$scope.setCategory = function(cat){
-				$scope.chosenCategory = cat;
-				Category.setCategoryData(cat);
+			$scope.setCategory = function(category){
+				$scope.chosenCategory = category;
+				Category.setCategoryData(category);
 			};
 			$scope.getCategory = function(){
 				console.log(Category.catData);
 			};
+			var socket = io.connect();
+			socket.on("happy", function(data){
+				console.log(data);
+			})
+			// Category.getTotalFilms().then(function(total){
+
+			// });
 			$http.get('/api/totalnumbers').then(function(response){
 						console.log(response.data.totalFilms);
 						$scope.total = response.data.totalFilms;
