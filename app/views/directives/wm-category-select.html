@@ -3,7 +3,7 @@
 	Search: <input ng-model="query">
 	<h4>{{count}}</h4>
 	<ul class="list-group">
-		<wm-category-item ng-repeat="category in categories | filter: query" category="category" ng-click="setCategory(category.title)"></wm-category-item>
+		<wm-category-item ng-repeat="(category, value) in categories | filter: query" category="category" total="value.total" ng-click="setCategory(category)"></wm-category-item>
 		<p ng-click="getCategory()">click</p>
 	</ul>
 </div>

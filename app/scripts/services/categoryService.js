@@ -2,13 +2,6 @@ var categoryService = function($http){
 	
 	this.setCategoryData = function(category){
 		this.name = category;
-		this.urlParam = category + '.json';
-		var self = this;
-		//load the json file for the chosen category
-		$http.get(this.urlParam)
-			.success(function(data){
-				self.catData = data;
-			});
 	};
 	this.getCountryData = function(country){
 		// for(var i = 0; i < this.catData.length; i++){
@@ -23,9 +16,9 @@ var categoryService = function($http){
 		});	
 	};
 
-	this.getTotalFilms = function(){
+	this.getTotalFilms = function(callback){
 		$http.get('/api/totalfilms').then(function(response){
-			return response.data.totalFilms;
+			callback(response.data.totalFilms);
 		})
 }
 

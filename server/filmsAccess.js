@@ -15,20 +15,16 @@ var insertFilm = function(db, options){
 		assert.equal(err, null);
 		// If a film was added (i.e. the film didn't already exist)
 		if(result.result.nModified == 1){
-			socketsService().totalFilms(options.client);
+			totalFilms(db, null, function(totalNumberOfFilms){
+				options.io.sockets.emit("updateFilmsTotal", {total: totalNumberOfFilms});
+			})
+			// socketsService().totalFilms(options.client);
 			console.log("Inserted " + film.Title + " into " + options.countryName);
 		}
 	})
 }
 
-var updateFilmsTotal = function(db){
-	db.collection('countryInfo').update(
-		{ "category": "films"},
-		{ "$inc": {"total": 1}}
-	);
-}
-
-var totalFilms = function(db){
+var totalFilms = function(db, options, callback){
 	var cursor = db.collection('countryInfo').find();
 	var numberOfFilms = 0;
     cursor.each(function(err, doc) {
@@ -68,7 +64,8 @@ var filmsAccess = function(){
 
 	return {
 		selectFilm : selectFilm,
-		insertFilm : insertFilm
+		insertFilm : insertFilm,
+		totalFilms : totalFilms
 	}
 }
 

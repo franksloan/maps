@@ -11,7 +11,6 @@ var router = function(expressRouter, io){
 	// obCli.friend = socketsService().connect(io);
 	io.on('connection', function(client){
 		console.log('coonnect');
-		console.log(client);
 	});
 	// reload
 	expressRouter.use(function(req, res, next){
@@ -65,6 +64,7 @@ var router = function(expressRouter, io){
 	// and to add one to the database.
 	expressRouter.route('/films/:country')
 		.get(function(req, res, next){
+			req.options.io = io;
 			mongoAccess(req.options, req.filmsAccess.selectFilm,
 				function(films){
 					// does a film exist (if it's not null)
@@ -99,7 +99,8 @@ var router = function(expressRouter, io){
 
 	expressRouter.route('/totalfilms/')
 		.get(function(req, res){
-			mongoAccess(null, categoryDetailsAccess().calculateTotals, function(total){
+			req.filmsAccess = filmsAccess();
+			mongoAccess(null, req.filmsAccess.totalFilms, function(total){
 				console.log('finished total: '+total);
 				res.json({'totalFilms': total});
 			})

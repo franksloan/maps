@@ -1,6 +1,6 @@
-[
-	{"title": "food"},
-	{"title": "films"},
-	{"title": "music"},
-	{"title": "language"}
-]
+{ 
+	"food" : {"total": 0},
+	"films" : {"total": 0},
+	"music" : {"total": 0},
+	"language" : {"total": 0}
+}
