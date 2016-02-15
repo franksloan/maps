@@ -17,7 +17,7 @@ module.exports = categoryController
 				$scope.chosenCategory = 'food';
 				// Category.setCategoryData('food');
 			});
-			$scope.count = 0;
+			
 			$scope.setCategory = function(category){
 				$scope.chosenCategory = category;
 				Category.setCategoryData(category);
@@ -27,12 +27,22 @@ module.exports = categoryController
 			// };
 			var socket = io.connect();
 			socket.on("updateFilmsTotal", function(data){
-				var totalFilms = data.total;
-				$scope.categories.films.total = totalFilms;
-			})
+				var totalInCategory = data.total;
+				$scope.categories['films'].total = totalInCategory;
+			});
+			socket.on("updateFoodTotal", function(data){
+				var totalInCategory = data.total;
+				$scope.categories['food'].total = totalInCategory;
+			});
+
+			
 			// On initialisation set the total number of films
 			Category.getTotalFilms(function(totalFilms){
 				$scope.categories.films.total = totalFilms;
+			});
+			// On initialisation set the total number of recipes
+			Category.getTotalFood(function(totalFood){
+				$scope.categories.food.total = totalFood;
 			});
 		}
 	])

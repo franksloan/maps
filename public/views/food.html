@@ -1,11 +1,8 @@
-<!-- <ul class="info list-group" ng-controller="FoodCtrl">
-		<li ng-repeat="recipe in food" class="thumbnail">
-			<a href="#/food/{{recipe.id}}">{{recipe.name}}</a>
-			<p><b>Ingredients:</b><span ng-repeat="ingredient in recipe.ingredients"> {{ingredient}}</span></p>
-		</li>
-</ul> -->
 <div class="info">
-	<a href="#/food/{{recipe.id}}">{{food.name}}</a>
-	<p><b>Ingredients:</b><span ng-repeat="ingredient in food.ingredients"> {{ingredient}}</span></p>
-	<p><b>Origin:</b> {{food.country}}</p>
+	<a href="{{food.url}}">{{food.title}}</a>
+	<a href="{{food.url}}" class='thumb'><img ng-src="{{food.img}}"></a>
+	<p>{{food.teaser}}</p>
+	<p><b>Rating:</b> {{food.averageRating}}</p>
+	<a ng-click="nextItem()" ng-show="more">Next</a>
+	<a ng-click="previousItem()" ng-show="less">Previous</a>
 </div>

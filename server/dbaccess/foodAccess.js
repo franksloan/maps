@@ -1,72 +1,72 @@
 var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
-var socketsService = require('./socketsService');
+var socketsService = require('./../socketsService');
 //
 
-var insertFilm = function(db, options){
-	var film = options.data;
+var insertRecipe = function(db, options){
+	var recipe = options.data;
 	db.collection('countryInfo').updateOne(
 	{
 		"countryName" : options.countryName
 	},
 	{
-		"$addToSet": {"films": film }
+		"$addToSet": {"food": recipe}
 	}, function(err, result){
 		assert.equal(err, null);
 		// If a film was added (i.e. the film didn't already exist)
 		if(result.result.nModified == 1){
-			totalFilms(db, null, function(totalNumberOfFilms){
-				options.io.sockets.emit("updateFilmsTotal", {total: totalNumberOfFilms});
+			totalRecipes(db, null, function(totalNumberOfRecipes){
+				options.io.sockets.emit("updateFoodTotal", {total: totalNumberOfRecipes});
 			})
 			// socketsService().totalFilms(options.client);
-			console.log("Inserted " + film.Title + " into " + options.countryName);
+			console.log("Inserted " + recipe.Title + " into " + options.countryName);
 		}
 	})
 }
 
-var totalFilms = function(db, options, callback){
+var totalRecipes = function(db, options, callback){
 	var cursor = db.collection('countryInfo').find();
-	var numberOfFilms = 0;
+	var numberOfRecipes = 0;
     cursor.each(function(err, doc) {
 	    assert.equal(err, null);
 	    
-	    if (doc && doc.films) {
-	    	console.log(doc.countryName +': '+ doc.films.length);
-	    	numberOfFilms += doc.films.length;
+	    if (doc && doc.food) {
+	    	
+	    	numberOfRecipes += doc.food.length;
         } else if (doc == null) {
-	      	callback(numberOfFilms);
+	      	callback(numberOfRecipes);
 	    }
     }); 
 }
 
 //
-var selectFilm = function(db, options, callback){
+var selectRecipe = function(db, options, callback){
 	var cursor = db.collection('countryInfo').find( { "countryName": options.countryName } );
 	  
     cursor.each(function(err, doc) {
 	    assert.equal(err, null);
 
-	    if (doc && doc.films && doc.films.length > 0) {
-	    	var l = doc.films.length;
+	    if (doc && doc.food && doc.food.length > 0) {
+	    	var l = doc.food.length;
 	        // film = doc.films[Math.floor(Math.random()*l)];
-	        callback(doc.films);
+	        callback(doc.food);
         } else if (doc != null) {
 	      	// this will always get run - after the last object
 	      	// is reached there will be a null object
-	      	var films = [];
-	      	callback(films);
+	      	var food = [];
+	      	callback(food);
 	    }
     });
     
 }
 
-var filmsAccess = function(){
+var foodAccess = function(){
 
 	return {
-		selectFilm : selectFilm,
-		insertFilm : insertFilm,
-		totalFilms : totalFilms
+		selectRecipe : selectRecipe,
+		insertRecipe : insertRecipe,
+		totalRecipes : totalRecipes
 	}
 }
 
-module.exports = filmsAccess;
+module.exports = foodAccess;

@@ -3,15 +3,15 @@ var dialogController = function($scope, $rootScope) {
         	var categoryName = $scope.ngDialogData.categoryName;
         	var countryData = $scope.ngDialogData.countryData;
 			console.log(categoryName);
-			var args = 'apple';
-			$rootScope.$broadcast('updateNumber', args);
+			
 			$scope[categoryName] = countryData[0];
+			console.log(countryData);
 			$scope.index = 0;
 			if(countryData.length > 1){
 				$scope.more = true;
 			}
 			$scope.less = false;
-			$scope.nextFilm = function(){
+			$scope.nextItem = function(){
 				if($scope.index < countryData.length - 1){
 					$scope.index++;
 					$scope[categoryName] = countryData[$scope.index];
@@ -21,7 +21,7 @@ var dialogController = function($scope, $rootScope) {
 					$scope.more = false;
 				}
 			}
-			$scope.previousFilm = function(){
+			$scope.previousItem = function(){
 				if($scope.index > 0){
 					$scope.index--;
 					$scope[categoryName] = countryData[$scope.index];

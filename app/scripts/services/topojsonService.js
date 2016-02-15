@@ -4,7 +4,6 @@ var topojsonService = function($document, $q, $rootScope, $window){
           topo: function() { return d.promise; }
         };
 	function onScriptLoad(){
-		console.log('bubububu');
 		$rootScope.$apply(function() {d.resolve($window.topojson); });
 	}
 

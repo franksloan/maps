@@ -1,8 +1,8 @@
 var request = require("request"),
 	cheerio = require("cheerio"),
-	getExternalInfo = require("./externalInfo");
+	getExternalInfo = require("./../externalInfo");
 
-var scraper = function(countryName, call){
+var scraper = function(countryName, callback){
 	var filmInfo;
 	request("http://www.imdb.com/country/", function(error, response, html){
 		
@@ -20,7 +20,7 @@ var scraper = function(countryName, call){
 				countryPage(countryCode, function(filmData){
 					// only print one for now
 					console.log('1');
-					call(filmData);
+					callback(filmData);
 					
 				});
 				return false;
@@ -28,7 +28,7 @@ var scraper = function(countryName, call){
 				console.log('Country not found');
 				countryPage('/country/us', function(filmData){
 					// only print one for now
-					call(filmData);
+					callback(filmData);
 					
 				});
 				return false;
@@ -58,26 +58,6 @@ var countryPage = function(country, callback){
 						console.log('2');
 						callback(filmForChosenCountry);
 					});
-				//grabs a film
-				// $('.results .detailed').each(function(i, elem){
-					
-				// 	var urlFilmSuffix = $(elem).children().children().attr('href');
-				// 	var id = urlFilmSuffix.replace('/title/', '').replace('/','');
-					
-				// 	var time1 = new Date().getTime();
-				// 	// Use IMDB API to grab info for each of the top 10 films
-				// 	getExternalInfo("http://www.omdbapi.com/?i="+id, function(data){						
-				// 		// console.log(data);
-				// 		// console.log('\n');
-				// 		filmsArrayForChosenCountry.push(data);
-				// 		console.log((new Date().getTime() - time1)/1000);
-				// 		if(filmsArrayForChosenCountry.length == 1){
-							
-				// 			callback(filmsArrayForChosenCountry);
-				// 		}
-				// 	});
-					
-				// });
 			}
 		)
 		

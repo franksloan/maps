@@ -4,7 +4,6 @@ var d3Service = function($document, $q, $rootScope, $window){
           d3: function() { return d.promise; }
         };
 	function onScriptLoad(){
-		console.log('hhhhhh');
 		$rootScope.$apply(function() {d.resolve($window.d3); });
 	}
 
