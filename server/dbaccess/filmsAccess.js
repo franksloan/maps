@@ -1,6 +1,5 @@
 var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
-var socketsService = require('./../socketsService');
 //
 
 var insertFilm = function(db, options){

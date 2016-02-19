@@ -17,17 +17,17 @@ var scraper = function(countryName, callback){
 				var countryCode = $(elem).children().attr('href');
 				
 				// Use the country code to get data for films from that country
-				countryPage(countryCode, function(filmData){
+				getCountryPage(countryCode, function(filmData){
 					// only print one for now
-					console.log('1');
 					callback(filmData);
 					
 				});
 				return false;
+				
 			} else if(countryName === 'united states of america') {
-				console.log('Country not found');
-				countryPage('/country/us', function(filmData){
-					// only print one for now
+				
+				getCountryPage('/country/us', function(filmData){
+					
 					callback(filmData);
 					
 				});
@@ -38,7 +38,7 @@ var scraper = function(countryName, callback){
 	})
 }
 
-var countryPage = function(country, callback){
+var getCountryPage = function(country, callback){
 		
 		var filmsArrayForChosenCountry = [];
 		// Load the country page to scrape the 
@@ -47,7 +47,8 @@ var countryPage = function(country, callback){
 			function(error, response, html){
 				
 				var $ = cheerio.load(html, {
-					normalizeWhitespace:true
+					normalizeWhitespace:true,
+					decodeEntities: false
 				});
 				// Get a random film for now
 				// to do - look at number in db and get next one

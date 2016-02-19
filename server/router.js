@@ -2,6 +2,7 @@ var scraper = require('./webscrapers/filmScraper'),
 	countryAccess = require('./dbaccess/countryAccess'),
 	mongoAccess = require('./dbaccess/mongoAccess'),
 	filmsAccess = require('./dbaccess/filmsAccess'),
+	countryParamRoute = require('./routes/countryParamRoute'),
 	filmsRoute = require('./routes/filmsRoute'),
 	foodRoute = require('./routes/foodRoute');
 
@@ -23,6 +24,13 @@ var router = function(expressRouter, io){
 	expressRouter.get('/', function(req, res){
 		res.json({message: 'hey'});
 	});
+
+	expressRouter.param('country', function(req, res, next, country){
+		console.log("no way");
+		next();
+	});
+
+	countryParamRoute(expressRouter);
 
 	filmsRoute(expressRouter);
 

@@ -7,38 +7,8 @@ var foodRoute = function(expressRouter){
 
 	expressRouter.route('/food/:country')
 		.get(function(req, res, next){
-			console.log(req.params.country);
-			req.options.countryName = req.params.country;
-			req.countryAccess = countryAccess();
 			req.foodAccess = foodAccess();
 			next();
-		});
-
-	// Does the country exist, if not create it.
-	expressRouter.route('/food/:country')
-		.get(function(req, res, next){
-			// find the country in the database
-			mongoAccess(req.options, req.countryAccess.findCountryDocument,
-				// this is passed back from 
-				function(countryMatchFound){
-					
-					if(countryMatchFound){
-						console.log('MATCH');
-						// the country exists so move onto the next route to find film
-						next('route');
-					} else {
-						// country doesn't exist so create it
-						console.log('NO MATCH');
-						next();
-					}
-				}
-			);
-		}, function(req, res, next){
-			// Create the country
-			mongoAccess(req.options, req.countryAccess.insertCountryDocument,
-				function(){
-					next();
-				});
 		});
 
 	// Does a film exist for this country, if so pass one back in the response and
@@ -53,9 +23,6 @@ var foodRoute = function(expressRouter){
 						// send a film back in the response
 						res.json(recipes);
 						// get a film using the scraper
-						foodScraper(req.options.countryName.toLowerCase(), function(data){
-							console.log('finished');
-						});
 						foodScraper(req.options.countryName.toLowerCase(), function(data){
 							if(data == null){
 								console.log('Nothing returned from scraper' + data);

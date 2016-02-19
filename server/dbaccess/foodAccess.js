@@ -1,6 +1,5 @@
 var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
-var socketsService = require('./../socketsService');
 //
 
 var insertRecipe = function(db, options){
@@ -19,7 +18,7 @@ var insertRecipe = function(db, options){
 				options.io.sockets.emit("updateFoodTotal", {total: totalNumberOfRecipes});
 			})
 			// socketsService().totalFilms(options.client);
-			console.log("Inserted " + recipe.Title + " into " + options.countryName);
+			console.log("Inserted " + recipe.title + " into " + options.countryName);
 		}
 	})
 }
@@ -42,7 +41,7 @@ var totalRecipes = function(db, options, callback){
 //
 var selectRecipe = function(db, options, callback){
 	var cursor = db.collection('countryInfo').find( { "countryName": options.countryName } );
-	  
+	
     cursor.each(function(err, doc) {
 	    assert.equal(err, null);
 

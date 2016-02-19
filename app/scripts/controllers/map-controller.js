@@ -14,7 +14,7 @@ var DialogCtrl = require('./dialog-controller');
 module.exports = mapController
 .factory('d3Service', ['$document', '$q', '$rootScope', '$window', d3Service])
 .factory('topojsonService', ['$document', '$q', '$rootScope', '$window', topojsonService])
-.service('Category', ['$http', categoryService])
+.service('Category', ['$http', '$q', categoryService])
 .service('WorldMap', ['d3Service', worldMapService])
 .controller('MapCtrl', ['$scope', 'd3Service', 'topojsonService', 'Category', '$http',
 	function($scope, d3Service, topojsonService, Category, $http) {

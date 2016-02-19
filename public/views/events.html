@@ -1,0 +1,10 @@
+<div class="info">
+	<a href="{{events.url}}">{{events.title | limitTo: 40}}</a>
+	<a href="{{events.url}}" class='thumb'><img ng-src="{{events.image.medium.url}}" ng-show="events.image.medium.url != null"></a>
+	<p><b>Country: </b>{{events.country_name}}</p>
+	<p><b>City: </b>{{events.city_name}}</p>
+	<p><b>Venue: </b><a href="{{events.venue_url}}">{{events.venue_name}}</a></p>
+	<p>{{events.description | limitTo: 150 | htmlToPlaintext}}<span ng-show="events.description.length > 150">...</span></p>
+	<a ng-click="nextItem()" ng-show="more">Next</a>
+	<a ng-click="previousItem()" ng-show="less">Previous</a>
+</div>

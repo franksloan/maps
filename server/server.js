@@ -1,11 +1,10 @@
 var express = require('express'),
 	lrserver = require('tiny-lr')(),
 	livereload = require('connect-livereload'),
-	router = require('./router');
-
-var server = express();
-var httpServer = require('http').Server(server);
-var io = require('socket.io')(httpServer);
+	router = require('./router'),
+	server = express(),
+	httpServer = require('http').Server(server),
+	io = require('socket.io')(httpServer);
 
 var startServer = function(){
 
@@ -25,6 +24,7 @@ var startServer = function(){
 	});
 
 	httpServer.listen(5000);
+	
 }
 
 module.exports = startServer;

@@ -1,24 +1,24 @@
 (function(){
 
-'use strict';
+	'use strict';
 
-var CatCtrl = require('./controllers/categories-controller');
-var FilmCtrl = require('./controllers/film-detail-controller');
-var FoodCtrl = require('./controllers/food-detail-controller');
-var MapCtrl = require('./controllers/map-controller');
-var DialogCtrl = require('./controllers/dialog-controller');
+	var CatCtrl = require('./controllers/categories-controller');
+	var FilmCtrl = require('./controllers/film-detail-controller');
+	var FoodCtrl = require('./controllers/food-detail-controller');
+	var MapCtrl = require('./controllers/map-controller');
+	var DialogCtrl = require('./controllers/dialog-controller');
+	var filters = require('./services/filters');
 
-var mapsApp = angular.module('WorldMaps', [
-	'ngRoute',
-	'categoryController',
-	'filmController',
-	'foodController',
-	'mapController'
-	]);
-mapsApp.config(['$routeProvider',
-	function($routeProvider){
-		$routeProvider.
-			when('/', {
+	var mapsApp = angular.module('WorldMaps', [
+		'ngRoute',
+		'categoryController',
+		'filmController',
+		'foodController',
+		'mapController'
+		]);
+	mapsApp.config(['$routeProvider',
+		function($routeProvider){
+			$routeProvider.when('/', {
 				templateUrl: 'views/film.html',
 				controller: 'FilmCtrl'
 			}).
@@ -49,7 +49,7 @@ mapsApp.config(['$routeProvider',
 			otherwise({
 				redirectTo: '/'
 			});
-
-	}
-	]);
+		}]
+	);
+	filters(mapsApp);
 })();

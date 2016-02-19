@@ -7,37 +7,8 @@ var filmsRoute = function(expressRouter){
 
 	expressRouter.route('/films/:country')
 		.get(function(req, res, next){
-			req.options.countryName = req.params.country;
-			req.countryAccess = countryAccess();
 			req.filmsAccess = filmsAccess();
 			next();
-		});
-
-	// Does the country exist, if not create it.
-	expressRouter.route('/films/:country')
-		.get(function(req, res, next){
-			// find the country in the database
-			mongoAccess(req.options, req.countryAccess.findCountryDocument,
-				// this is passed back from 
-				function(countryMatchFound){
-					
-					if(countryMatchFound){
-						console.log('MATCH');
-						// the country exists so move onto the next route to find film
-						next('route');
-					} else {
-						// country doesn't exist so create it
-						console.log('NO MATCH');
-						next();
-					}
-				}
-			);
-		}, function(req, res, next){
-			// Create the country
-			mongoAccess(req.options, req.countryAccess.insertCountryDocument,
-				function(){
-					next();
-				});
 		});
 
 	// Does a film exist for this country, if so pass one back in the response and
