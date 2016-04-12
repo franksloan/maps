@@ -1,4 +1,4 @@
 <li class="list-group-item">
 	<span class="badge">{{total}}</span>
-	<a>This is {{category}}</a>
+	<a ng-class="{'bold':$parent.chosenCategory == category}">{{category | capitalize}}</a>
 </li>

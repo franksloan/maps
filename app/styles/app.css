@@ -93,3 +93,12 @@ div.tooltip {
   display: inline;
   text-align: center;
 }
+
+.bold {
+  font-weight: bold;
+}
+
+.logo {
+  max-width: 100%;
+  padding-bottom: 20px;
+}

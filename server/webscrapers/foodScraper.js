@@ -56,7 +56,7 @@ var getFoodInfo = function(suffix, callback){
 
 		var title = $('.title', article).html();
 		foodInfo.title = title;
-		console.log(title);
+		
 		var img = $('img', article).attr('src');
 		foodInfo.img = img;
 

@@ -2,10 +2,9 @@ var dialogController = function($scope, $rootScope) {
         	// controller logic
         	var categoryName = $scope.ngDialogData.categoryName;
         	var countryData = $scope.ngDialogData.countryData;
-			console.log(categoryName);
 			
 			$scope[categoryName] = countryData[0];
-			console.log(countryData);
+			
 			$scope.index = 0;
 			if(countryData.length > 1){
 				$scope.more = true;

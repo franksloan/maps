@@ -18,7 +18,7 @@ var filmsRoute = function(expressRouter){
 		.get(function(req, res, next){
 			mongoAccess(req.options, req.filmsAccess.selectFilm,
 				function(films){
-					// does a film exist (if it's not null)
+					// does a film exist (if array empty)
 					if(films.length > 0){
 						// send a film back in the response
 						res.json(films);

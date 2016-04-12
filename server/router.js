@@ -4,7 +4,9 @@ var scraper = require('./webscrapers/filmScraper'),
 	filmsAccess = require('./dbaccess/filmsAccess'),
 	countryParamRoute = require('./routes/countryParamRoute'),
 	filmsRoute = require('./routes/filmsRoute'),
-	foodRoute = require('./routes/foodRoute');
+	foodRoute = require('./routes/foodRoute'),
+	travelRoute = require('./routes/travelRoute'),
+	countryIntroRoute = require('./routes/countryIntroRoute');
 
 var router = function(expressRouter, io){
 
@@ -17,7 +19,7 @@ var router = function(expressRouter, io){
 		console.log('in route');
 		req.options = {};
 		req.options.io = io;
-		io.sockets.emit("happy", {dat: "ok"});
+		
 		next();
 	});
 
@@ -31,10 +33,10 @@ var router = function(expressRouter, io){
 	});
 
 	countryParamRoute(expressRouter);
-
+	countryIntroRoute(expressRouter);
 	filmsRoute(expressRouter);
-
 	foodRoute(expressRouter);
+	travelRoute(expressRouter);
 
 	return expressRouter;
 	

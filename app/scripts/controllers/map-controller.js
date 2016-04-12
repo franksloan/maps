@@ -2,6 +2,7 @@ var mapController = angular.module('mapController', ['ngDialog']);
 
 //get directives
 var wmMap = require('./../directives/wm-map');
+var wmChangeItem = require('./../directives/wm-change-item');
 //
 //require services
 var d3Service = require('./../services/d3Service');
@@ -29,4 +30,5 @@ module.exports = mapController
 ])
 
 .directive('wmMap', ['d3Service', 'Category', '$window', 'ngDialog', 'WorldMap', wmMap])
-.controller('DialogCtrl', ['$scope', '$rootScope', DialogCtrl]);
+.controller('DialogCtrl', ['$scope', '$rootScope', DialogCtrl])
+.directive('wmChangeItem', wmChangeItem);

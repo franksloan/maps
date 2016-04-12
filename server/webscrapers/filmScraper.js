@@ -56,7 +56,7 @@ var getCountryPage = function(country, callback){
 				var urlFilmSuffix = suf.children().children().attr('href');
 				var filmId = urlFilmSuffix.replace('/title/', '').replace('/','');
 				getExternalInfo("http://www.omdbapi.com/?i="+filmId, function(filmForChosenCountry){						
-						console.log('2');
+						
 						callback(filmForChosenCountry);
 					});
 			}

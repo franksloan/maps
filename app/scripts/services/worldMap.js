@@ -70,10 +70,9 @@ var worldMapService = function(d3Service){
 			  						.style("opacity", 0.5);
 	    		
 			  	var countryInfo = Category.getCountryData(this.id);
-			  	console.log(countryInfo);
+			  	
 			  	countryInfo.then(function(countryData){
-			  		console.log(countryData);
-			  		console.log('hmmmm');
+			  		
 			  		ngDialog.open({
 	                    template: 'views/' + Category.name + '.html',
 	                    overlay: false,

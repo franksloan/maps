@@ -1,9 +1,20 @@
 <div class="well col-md-3">
-	<h2>{{chosenCategory}}</h2>
-	Search: <input ng-model="query">
-	<h4>{{count}}</h4>
+	<a href="https://www.lonelyplanet.com/">
+	<img class="logo" ng-show="chosenCategory == 'travel' || chosenCategory == 'country_intro' " src="http://tomorrowproducts.com/wp-content/uploads/2016/02/lonely-planet-logo-lonely-planet-logo-large.jpg"></a>
+	<a href="http://www.imdb.com/">
+	<img class="logo" ng-show="chosenCategory == 'films'" src="http://ia.media-imdb.com/images/M/MV5BMjM1ODg1NzgxOV5BMl5BcG5nXkFtZTgwODIwNTg0MjE@._V1_.png">
+	</a>
+	<a href="http://www.eventful.com">
+	<img class="logo" ng-show="chosenCategory == 'events'" src="http://startupbeat.com/wp-content/uploads/2012/08/Eventful_logo.png">
+	</a>
+	<a href="http://www.whats4eats.com/">
+	<img class="logo" ng-show="chosenCategory == 'food'" src="https://media.licdn.com/mpr/mpr/shrink_200_200/p/8/005/0a3/2eb/3ead5e0.png">
+	</a>
+
 	<ul class="list-group">
-		<wm-category-item ng-repeat="(category, value) in categories | filter: query" category="category" total="value.total" ng-click="setCategory(category)"></wm-category-item>
-		<p ng-click="getCategory()">click</p>
+		<li class="list-group-item" ng-click="setCategory('country_intro')">
+			<a ng-class="{bold:chosenCategory == 'country_intro'}">Home</a>
+		</li>
+		<wm-category-item ng-repeat="(category, value) in categories" category="category" total="value.total" ng-click="setCategory(category)"></wm-category-item>
 	</ul>
 </div>

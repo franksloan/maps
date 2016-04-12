@@ -1,7 +1,6 @@
 { 
 	"food" : {"total": 0},
 	"films" : {"total": 0},
-	"music" : {"total": 0},
-	"language" : {"total": 0},
-	"events" : {"total": 0}
+	"travel" : {"total": 0},
+	"events" : {"total": 5}
 }

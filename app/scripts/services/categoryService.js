@@ -7,6 +7,9 @@ var categoryService = function($http, $q){
 	this.getCountryData = function(country){
 
 		if(this.name == 'events'){
+			if(country == "United States of America"){
+				country = "USA";
+			}
 			var oArgs = {
 
 			      app_key: "qw8jN8Ld4564FZBm",
@@ -23,22 +26,13 @@ var categoryService = function($http, $q){
 			var p = $q.defer();
 			EVDB.API.call("/events/search", oArgs, function(oData) {
 				p.resolve(oData.events.event);
-			})
-				
-				console.log(p);
-				return p.promise;
+			})				
 
-			// return EVDB.API.call("/events/search", oArgs, function(oData) {
-			// 	console.log(oData.events);
-			// 	var p = $q.defer();
-			// 	p.resolve(oData.events);
-			// 	console.log(p);
-			// 	return p.promise;
-		 //    // Note: this relies on the custom toString() methods below
-		 //  	});	
+			return p.promise;
+
 		} else {
 			//find the clicked on country's data
-			return $http.get('/api/'+this.name+'/'+country).then(function(response){
+			return $http.get('/api/'+this.name.toLowerCase()+'/'+country).then(function(response){
 				return response.data;
 			});	
 		}
@@ -53,6 +47,18 @@ var categoryService = function($http, $q){
 	this.getTotalFood = function(callback){
 		$http.get('/api/totalfood').then(function(response){
 			callback(response.data.totalFood);
+		});
+	}
+
+	this.getTotalEvents = function(callback){
+		$http.get('/api/totalevents').then(function(response){
+			callback(response.data.totalEvents);
+		});
+	}
+
+	this.getTotalSights = function(callback){
+		$http.get('/api/totalsights').then(function(response){
+			callback(response.data.totalSights);
 		});
 	}
 

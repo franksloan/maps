@@ -3,6 +3,5 @@
 	<a href="{{food.url}}" class='thumb'><img ng-src="{{food.img}}"></a>
 	<p>{{food.teaser}}</p>
 	<p><b>Rating:</b> {{food.averageRating}}</p>
-	<a ng-click="nextItem()" ng-show="more">Next</a>
-	<a ng-click="previousItem()" ng-show="less">Previous</a>
+	<wm-change-item></wm-change-item>
 </div>
