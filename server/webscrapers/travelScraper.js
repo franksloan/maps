@@ -11,7 +11,7 @@ var travelScraper = function(countryName, callback){
 
 		var url = lonelyPlanetUrl+"/"+countryName+"/sights";
 		
-		// Load the country page to scrape the 
+		// Load the country page to scrape the travel sights from
 		request(
 			url, 
 			function(error, response, html){
@@ -23,14 +23,13 @@ var travelScraper = function(countryName, callback){
 				var sights = $('#js-results', '.stack__content');
 				
 				var articles = $('article', sights);
-				var randomArticleNumber = Math.floor(Math.random()*articles.length)
-				
+				var randomArticleNumber = Math.floor(Math.random()*articles.length);
+				// pick a random sight from the list of them
 				var article = $('a', articles[randomArticleNumber]);
 
+				// create sight object
 				var sightInfo = {};
-
 				sightInfo.url = lonelyPlanetUrl + article.attr('href');
-				console.log(sightInfo.url);
 				sightInfo.img = $('img', article).attr('src');
 				sightInfo.travelCategory = $('.card__content__context', article).text();
 				sightInfo.sightName = $('.card__content__title', article).text();

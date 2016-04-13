@@ -24,6 +24,7 @@ var countryIntroScraper = function(countryName, callback){
 				var countryIntroText = article.text();
 
 				var countryIntro = {};
+				countryIntro.url = lonelyPlanetUrl+'/'+countryName;
 				countryName = countryName.replace(/-/g, " ");
 				countryIntro.countryName = countryName;
 				countryIntro.countryIntroText = countryIntroText.replace(/Read More/g, "");;

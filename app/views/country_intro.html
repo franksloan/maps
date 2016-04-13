@@ -1,5 +1,8 @@
-<div class="info">
-	<a href="">{{country_intro.countryName | capitalize:true}}</a>
-	<a href="" class='thumb'><img ng-src="{{country_intro.img}}"></a>
+<div class="info" ng-show="country_intro.countryIntroText != null">
+	<a href="{{country_intro.url}}">{{country_intro.countryName | capitalize:true}}</a>
+	<a href="{{country_intro.url}}" class='thumb'><img ng-src="{{country_intro.img}}"></a>
 	<p>{{country_intro.countryIntroText}}</p>
+</div>
+<div class="info" ng-show="country_intro.countryIntroText == null">
+	<p>No country introduction found for this country</p>
 </div>

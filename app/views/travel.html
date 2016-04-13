@@ -1,7 +1,10 @@
-<div class="info">
+<div class="info" ng-show="travel.sightName != null">
 	<a href="{{travel.url}}">{{travel.sightName}}</a>
 	<a href="{{travel.url}}" class='thumb'><img ng-src="{{travel.img}}"></a>
 	<p><b>Category: </b> {{travel.travelCategory}}</p>
 	<p>{{travel.sightDescription}}</p>
 	<wm-change-item></wm-change-item>
+</div>
+<div class="info" ng-show="travel.sightName == null">
+	<p>No travel sights found for this country</p>
 </div>

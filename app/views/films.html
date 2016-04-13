@@ -1,4 +1,4 @@
-<div class="info">
+<div class="info" ng-show="films.Title != null">
 	<a href="http://www.imdb.com/title/{{films.imdbID}}">{{films.Title}}</a>
 	<a href="http://www.imdb.com/title/{{films.imdbID}}" class='thumb'><img ng-src="{{films.Poster}}"></a>
 	<p><b>Actors:</b> {{films.Actors}}</p>
@@ -7,4 +7,7 @@
 	<p><b>Year:</b> {{films.Year}}</p>
 	<p>{{films.Plot}}</p>
 	<wm-change-item></wm-change-item>
+</div>
+<div class="info" ng-show="films.Title == null">
+	<p>No films found for this country</p>
 </div>
