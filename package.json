@@ -22,6 +22,7 @@
   "homepage": "https://github.com/franksloan/maps",
   "devDependencies": {
     "browserify": "^9.0.8",
+    "chai": "^3.5.0",
     "connect-livereload": "^0.5.3",
     "gulp": "^3.8.11",
     "gulp-browserify": "^0.5.1",
@@ -37,13 +38,16 @@
     "gulp-util": "^3.0.4",
     "jasmine-core": "^2.3.0",
     "jasmine-jquery": "^2.1.0",
+    "jasmine-node": "^1.14.5",
     "karma": "^0.12.31",
     "karma-chrome-launcher": "^0.1.8",
     "karma-firefox-launcher": "^0.1.4",
     "karma-jasmine": "^0.3.5",
     "karma-phantomjs-launcher": "^0.1.4",
     "karma-safari-launcher": "^0.1.1",
+    "mockery": "^1.6.2",
     "protractor": "^2.0.0",
+    "sinon": "^1.17.3",
     "tiny-lr": "^0.1.5"
   },
   "dependencies": {
