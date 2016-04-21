@@ -58,14 +58,12 @@ describe('Country intro route', function() {
 
 	afterEach(function(){
 		nextFunc.reset();
-		responseStub.reset();
 	})
 	
 	it('should setup request object with access to country intro db', function() {
 		// given
 		var countryIntroRoute = require(countryIntroRouteTestModule);
 		routeGetStub.yields(requestObj, responseObj, nextFunc);
-		expressRouterStub.returns(route);
 		
 		// when
   		countryIntroRoute(expressRouter);

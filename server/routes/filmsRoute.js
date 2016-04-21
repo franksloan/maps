@@ -1,5 +1,4 @@
-var scraper = require('./../webscrapers/filmScraper'),
-	countryAccess = require('./../dbaccess/countryAccess'),
+var filmScraper = require('./../webscrapers/filmScraper'),
 	mongoAccess = require('./../dbaccess/mongoAccess'),
 	filmsAccess = require('./../dbaccess/filmsAccess');
 
@@ -20,10 +19,11 @@ var filmsRoute = function(expressRouter){
 				function(films){
 					// does a film exist (if array empty)
 					if(films.length > 0){
+						console.log(films);
 						// send a film back in the response
 						res.json(films);
 						// get a film using the scraper
-						scraper(req.options.countryName.toLowerCase(), function(data){
+						filmScraper(req.options.countryName.toLowerCase(), function(data){
 							if(data == null){
 								console.log('Nothing returned from scraper' + data);
 							}
@@ -32,7 +32,7 @@ var filmsRoute = function(expressRouter){
 						});
 					} else {
 						// get a film using the scraper and then send it in the response
-						scraper(req.options.countryName.toLowerCase(), function(data){
+						filmScraper(req.options.countryName.toLowerCase(), function(data){
 							if(!data){
 								console.log('Nothing returned from scraper' + data);
 							}
