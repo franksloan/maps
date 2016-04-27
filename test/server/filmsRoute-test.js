@@ -16,7 +16,7 @@ describe('Films route', function() {
 	var countryIntroScraperStub, countryAccessStub, mongoAccessStub;
 	var requestObj, responseObj, nextFunc;
 	
-	before(function(){
+	beforeEach(function(){
 		
 		filmScraperStub = sinon.stub();
 		
@@ -30,6 +30,9 @@ describe('Films route', function() {
 		routeGetStub = sinon.stub(route, "get");
 
 		responseStub = sinon.stub(response, "json");
+
+		nextFunc = sinon.stub();
+		requestObj = { options: { countryName : "France"} };
 
 		// expose countryAccess's method(s) when it is called
 		filmsAccessStub = sinon.stub();
@@ -47,21 +50,17 @@ describe('Films route', function() {
 	    });
 	})
 
-	after(function(){
+	afterEach(function(){
 	    mockery.disable();
 	    mockery.deregisterAll();
+	    nextFunc.reset();
+		responseStub.restore();
+		mongoAccessStub.reset();
+		expressRouterStub.restore();
+		routeGetStub.restore();
+		filmsAccessStub.reset();
 	});
 
-  	// initialise before each test
-	beforeEach(function(){
-		nextFunc = sinon.stub();
-		requestObj = { options: { countryName : "France"} };
-	})
-
-	afterEach(function(){
-		nextFunc.reset();
-		responseStub.reset();
-	})
 	
 	it('should setup request object with access to country intro db', function() {
 		// given
@@ -91,7 +90,7 @@ describe('Films route', function() {
 	});
 
 
-	it('should send json response in callback if films array is populated in callback', function(done) {
+	it('should send json response in access callback if films array is populated in access callback', function(done) {
 		// given
 		var filmsRoute = require(filmsRouteTestModule);
 		routeGetStub.yields(requestObj, response, nextFunc);
@@ -113,8 +112,9 @@ describe('Films route', function() {
 		var filmsRoute = require(filmsRouteTestModule);
 		routeGetStub.yields(requestObj, response, nextFunc);
 
-		// an empty array is passed back in the callback which is third parameter of mongo function
+		// an array is passed back in the callback which is third parameter of mongo function
 		mongoAccessStub.withArgs(requestObj.options, filmsAccessRequestObj.selectFilm).callsArgWith(2, [zorroFilmString]);
+		// scraper gets a film back
 		filmScraperStub.yields(batmanFilmString);
 
 		// when
@@ -123,48 +123,74 @@ describe('Films route', function() {
 	  	// 
 	  	assert.equal(requestObj.options.data, batmanFilmString, 'data returned from scraper should be added to req options object');
 	  	assert(mongoAccessStub.calledWith(requestObj.options, filmsAccessRequestObj.insertFilm), 'should use mongo to insert data into db');
+	  	assert(filmScraperStub.calledAfter(responseStub), "should get another film after sending any films found back in response");
 	  	done();
 	});
 
 
-	// it('should populate the array with data from the scraper callback if no data is returned from db', function(done) {
-	// 	// given
-	// 	var countryIntroRoute = require(countryIntroRouteTestModule);
-	// 	routeGetStub.yields(requestObj, response, nextFunc);
-	// 	var countryIntroArray = [];
-	// 	// an empty array is passed back in the callback which is third parameter of mongo function
-	// 	mongoAccessStub.withArgs(requestObj.options, countryAccessRequestObj.selectCountryIntro).callsArgWith(2, countryIntroArray);
+	it('should use web scraper to get a film if access array returns nothing', function(done) {
+		// given
+		var filmsRoute = require(filmsRouteTestModule);
+		routeGetStub.yields(requestObj, response, nextFunc);
 
-	// 	countryIntroScraperStub.yields('france intro')
+		// an array is passed back in the callback which is third parameter of mongo function
+		mongoAccessStub.withArgs(requestObj.options, filmsAccessRequestObj.selectFilm).callsArgWith(2, []);
+		// scraper gets a film back
+		filmScraperStub.yields(batmanFilmString);
 
-	// 	// when
- //  		countryIntroRoute(expressRouter);
+		// when
+  		filmsRoute(expressRouter);
 
-	//   	// 
-	//   	assert.equal(countryIntroArray[0], 'france intro', "empty array returned from mongo should be populated with the data from scraper")
-	//   	assert(responseStub.calledWith(['france intro']), "data from scraper should be sent back in json response as array");
-	//   	done();
-	// });
+	  	// 
+	  	assert(responseStub.calledWith([batmanFilmString]), "same data should be sent back in json response as the web scraper found");
+	  	assert.equal(requestObj.options.data, batmanFilmString, 'data returned from scraper should be added to req options object');
+	  	assert(mongoAccessStub.calledWith(requestObj.options, filmsAccessRequestObj.insertFilm), 'should use mongo to insert data into db');
+	  	assert(responseStub.calledAfter(filmScraperStub), "should get another film after sending any films found back in response");
+	  	done();
+	});
 
 
-	// it('should use mongo to insert data from scraper if no data was found in db', function(done) {
-	// 	// given
-	// 	var countryIntroRoute = require(countryIntroRouteTestModule);
-	// 	routeGetStub.yields(requestObj, response, nextFunc);
-	// 	var countryIntroArray = [];
-	// 	// an empty array is passed back in the callback which is third parameter of mongo function
-	// 	mongoAccessStub.withArgs(requestObj.options, countryAccessRequestObj.selectCountryIntro).callsArgWith(2, countryIntroArray);
+	it('should use web scraper to get a film if access array returns nothing', function(done) {
+		// given
+		var filmsRoute = require(filmsRouteTestModule);
+		routeGetStub.yields(requestObj, response, nextFunc);
 
-	// 	countryIntroScraperStub.yields('france intro')
+		// an array is passed back in the callback which is third parameter of mongo function
+		mongoAccessStub.withArgs(requestObj.options, filmsAccessRequestObj.selectFilm).callsArgWith(2, []);
+		// scraper gets a film back
+		filmScraperStub.yields(batmanFilmString);
 
-	// 	// when
- //  		countryIntroRoute(expressRouter);
+		// when
+  		filmsRoute(expressRouter);
 
-	//   	//
-	//   	assert.equal(requestObj.options.data, 'france intro', 'data returned from scraper should be added to req options object');
-	//   	assert(mongoAccessStub.calledWith(requestObj.options, countryAccessRequestObj.insertCountryIntro), 'should use mongo to insert data into db');
-	//   	done();
-	// });
+	  	// 
+	  	assert(responseStub.calledWith([batmanFilmString]), "same data should be sent back in json response as the web scraper found");
+	  	assert.equal(requestObj.options.data, batmanFilmString, 'data returned from scraper should be added to req options object');
+	  	assert(mongoAccessStub.calledWith(requestObj.options, filmsAccessRequestObj.insertFilm), 'should use mongo to insert data into db');
+	  	assert(responseStub.calledAfter(filmScraperStub), "should get another film after sending any films found back in response");
+	  	done();
+	});
+
+
+	it('should send back number of films from films db in total films route', function() {
+		// given
+		var filmsRoute = require(filmsRouteTestModule);
+		routeGetStub.yields(requestObj, response, nextFunc);
+		var totalFilms = 101;
+		// an array is passed back in the callback which is third parameter of mongo function
+		mongoAccessStub.withArgs(null, filmsAccessRequestObj.totalfilms).callsArgWith(2, totalFilms);
+		
+		// when
+  		filmsRoute(expressRouter);
+
+	  	// this is the api pattern that must be used
+	  	assert(expressRouterStub.calledWith('/totalfilms/'), 'total films route param should be correct');
+	  	
+	  	assert.equal(requestObj.filmsAccess, filmsAccessRequestObj, 'films access methods should be on the request object');
+		// object with total films has been sent back in json response
+		var totalFilmsObj = {'totalFilms': totalFilms}
+		assert(responseStub.calledWith(totalFilmsObj), "total number of films should be sent back in json response");
+	});
 })
 
 
