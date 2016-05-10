@@ -2,7 +2,7 @@ var chai = require('chai');
 var assert = chai.assert;
 var mockery = require('mockery');
 var sinon = require('sinon');
-var filmsRouteTestModule = '../../server/routes/filmsRoute';
+var filmsRouteTestModule = '../../../server/routes/filmsRoute';
 
 var route  = { get: function(){} }
 var expressRouter = { route: function(routeParameter){} };
@@ -13,7 +13,7 @@ var zorroFilmString = "The Mask of Zorro";
 var batmanFilmString = "Batman";
 
 describe('Films route', function() {
-	var countryIntroScraperStub, countryAccessStub, mongoAccessStub;
+	var mongoAccessStub;
 	var requestObj, responseObj, nextFunc;
 	
 	beforeEach(function(){
@@ -124,28 +124,6 @@ describe('Films route', function() {
 	  	assert.equal(requestObj.options.data, batmanFilmString, 'data returned from scraper should be added to req options object');
 	  	assert(mongoAccessStub.calledWith(requestObj.options, filmsAccessRequestObj.insertFilm), 'should use mongo to insert data into db');
 	  	assert(filmScraperStub.calledAfter(responseStub), "should get another film after sending any films found back in response");
-	  	done();
-	});
-
-
-	it('should use web scraper to get a film if access array returns nothing', function(done) {
-		// given
-		var filmsRoute = require(filmsRouteTestModule);
-		routeGetStub.yields(requestObj, response, nextFunc);
-
-		// an array is passed back in the callback which is third parameter of mongo function
-		mongoAccessStub.withArgs(requestObj.options, filmsAccessRequestObj.selectFilm).callsArgWith(2, []);
-		// scraper gets a film back
-		filmScraperStub.yields(batmanFilmString);
-
-		// when
-  		filmsRoute(expressRouter);
-
-	  	// 
-	  	assert(responseStub.calledWith([batmanFilmString]), "same data should be sent back in json response as the web scraper found");
-	  	assert.equal(requestObj.options.data, batmanFilmString, 'data returned from scraper should be added to req options object');
-	  	assert(mongoAccessStub.calledWith(requestObj.options, filmsAccessRequestObj.insertFilm), 'should use mongo to insert data into db');
-	  	assert(responseStub.calledAfter(filmScraperStub), "should get another film after sending any films found back in response");
 	  	done();
 	});
 

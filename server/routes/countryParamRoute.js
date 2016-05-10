@@ -1,7 +1,5 @@
-var scraper = require('./../webscrapers/filmScraper'),
-	countryAccess = require('./../dbaccess/countryAccess'),
-	mongoAccess = require('./../dbaccess/mongoAccess'),
-	filmsAccess = require('./../dbaccess/filmsAccess');
+var countryAccess = require('./../dbaccess/countryAccess'),
+	mongoAccess = require('./../dbaccess/mongoAccess');
 
 var countryParamRoute = function(expressRouter){
 

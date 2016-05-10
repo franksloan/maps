@@ -53,7 +53,6 @@ var foodRoute = function(expressRouter){
 		.get(function(req, res){
 			req.filmsAccess = foodAccess();
 			mongoAccess(null, req.filmsAccess.totalRecipes, function(total){
-				console.log('finished total: '+total);
 				res.json({'totalFood': total});
 			})
 		})

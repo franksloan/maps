@@ -33,7 +33,6 @@ var travelRoute = function(expressRouter){
 					} else {
 						// get a film using the scraper and then send it in the response
 						travelScraper(req.options.countryName.toLowerCase(), function(data){
-							console.log(data);
 							if(!data){
 								console.log('Nothing returned from scraper' + data);
 							}
@@ -53,7 +52,6 @@ var travelRoute = function(expressRouter){
 		.get(function(req, res){
 			req.travelAccess = travelAccess();
 			mongoAccess(null, req.travelAccess.totalSights, function(total){
-				console.log('finished total: '+total);
 				res.json({'totalSights': total});
 			})
 		})

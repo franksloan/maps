@@ -2,7 +2,7 @@ var chai = require('chai');
 var assert = chai.assert;
 var mockery = require('mockery');
 var sinon = require('sinon');
-var countryIntroRouteTestModule = '../../server/routes/countryIntroRoute';
+var countryIntroRouteTestModule = '../../../server/routes/countryIntroRoute';
 
 var route  = { get: function(){} }
 var expressRouter = { route: function(routeParameter){} };

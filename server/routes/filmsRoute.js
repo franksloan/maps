@@ -19,7 +19,6 @@ var filmsRoute = function(expressRouter){
 				function(films){
 					// does a film exist (if array empty)
 					if(films.length > 0){
-						console.log(films);
 						// send a film back in the response
 						res.json(films);
 						// get a film using the scraper
@@ -52,7 +51,6 @@ var filmsRoute = function(expressRouter){
 		.get(function(req, res){
 			req.filmsAccess = filmsAccess();
 			mongoAccess(null, req.filmsAccess.totalFilms, function(total){
-				console.log('finished total: '+total);
 				res.json({'totalFilms': total});
 			})
 		})
