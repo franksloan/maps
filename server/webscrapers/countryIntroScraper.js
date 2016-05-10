@@ -9,7 +9,6 @@ var countryIntroScraper = function(countryName, callback){
 		}
 		countryName = countryName.replace(/ /g, "-");
 		var url = lonelyPlanetUrl+"/"+countryName;
-		
 		// Load the country page to scrape the 
 		request(
 			url, 
