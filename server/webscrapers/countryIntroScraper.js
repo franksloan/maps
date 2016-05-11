@@ -19,8 +19,7 @@ var countryIntroScraper = function(countryName, callback){
 				});
 
 				// get lonely planet country introduction
-				var article = $('p', '#introduction');
-				var countryIntroText = article.text();
+				var countryIntroText = $('p', '#introduction').text();
 
 				var countryIntro = {};
 				countryIntro.url = lonelyPlanetUrl+'/'+countryName;
