@@ -1,10 +1,11 @@
 var request = require("request"),
 	cheerio = require("cheerio"),
-	getExternalInfo = require("./../externalInfo");
+	getExternalInfo = require("./../externalInfo"),
+	imdbUrl = "http://www.imdb.com";
 
 var scraper = function(countryName, callback){
 	var filmInfo;
-	request("http://www.imdb.com/country/", function(error, response, html){
+	request(imdbUrl+"/country/", function(error, response, html){
 		
 		var $ = cheerio.load(html, {
 				normalizeWhitespace:true

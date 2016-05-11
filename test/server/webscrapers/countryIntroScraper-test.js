@@ -88,7 +88,7 @@ describe('Country intro route', function() {
 
 		countryIntroScraper("", callbackStub);
 
-		assert(cheerioDollarStub.calledWith('p', '#introduction'), 'looks in html which has id of 'introduction' inside p tag')
+		assert(cheerioDollarStub.calledWith('p', '#introduction'), "looks in html which has id of 'introduction' inside p tag")
 		assert(cheerioTextMethodSpy.called, "need to get text back from the cheerio html");
 		assert(callbackStub.calledWithMatch({countryIntroText: "France is a ... "}), 'callback should have intro text correctly populated');
 	});
