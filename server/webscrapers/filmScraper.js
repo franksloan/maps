@@ -60,7 +60,8 @@ var getCountryPage = function(country, callback){
 				decodeEntities: false
 			});
 			// Get a random film
-			var suf = $('.results .detailed').slice(Math.floor(Math.random()*10));
+			var randomNumber = Math.floor(Math.random()*10);
+			var suf = $('.results .detailed').slice(randomNumber, randomNumber + 1);
 			var urlFilmSuffix = suf.children().children().attr('href');
 			var filmId = urlFilmSuffix.replace('/title/', '').replace('/','');
 			getExternalInfo("http://www.omdbapi.com/?i="+filmId, function(filmForChosenCountry){				
