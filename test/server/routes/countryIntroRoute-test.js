@@ -5,8 +5,8 @@ var sinon = require('sinon');
 var countryIntroRouteTestModule = '../../../server/routes/countryIntroRoute';
 
 var route  = { get: function(){} }
-var expressRouter = { route: function(routeParameter){} };
-var response = { json: function(data){} };
+var expressRouter = { route: function(){} };
+var response = { json: function(){} };
 var countryAccessRequestObj = { selectCountryIntro: function(){},
 								insertCountryIntro: function(){} };
 

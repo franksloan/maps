@@ -3,15 +3,12 @@ var assert = chai.assert;
 var mockery = require('mockery');
 var sinon = require('sinon');
 var foodScraperTestModule = '../../../server/webscrapers/foodScraper';
-var callbackStub = function(){};
 var whats4eatsUrl = 'http://www.whats4eats.com';
 var cheerioModuleStub = { load: function(){ } };
 var cheerioDollarStub;
 var cheerioDomManipulatorStub = { text: function(){},
 								  attr: function(){},
 								  each: function(){},
-								  children: function(){},
-								  slice: function(){},
 								  html: function(){},
 								  length: 1
 								}
@@ -28,9 +25,7 @@ describe('Food scraper', function() {
 		// stub all of the methods which allow movement between html nodes
 		cheerioEachMethodStub = sinon.stub(cheerioDomManipulatorStub, "each");
 		cheerioTextMethodStub = sinon.stub(cheerioDomManipulatorStub, 'text');
-		cheerioChildrenMethodStub = sinon.stub(cheerioDomManipulatorStub, "children");
 		cheerioAttrMethodStub = sinon.stub(cheerioDomManipulatorStub, 'attr');
-		cheerioSliceMethodStub = sinon.stub(cheerioDomManipulatorStub, "slice");
 		cheerioHtmlMethodStub = sinon.stub(cheerioDomManipulatorStub, "html");
 
 		requestModuleStub = sinon.stub();
@@ -43,7 +38,6 @@ describe('Food scraper', function() {
 		cheerioLoadSpy = sinon.stub(cheerioModuleStub, "load");
 		cheerioLoadSpy.returns(cheerioDollarStub);
 
-		externalInfoStub = sinon.stub();
 		mockery.registerAllowable(foodScraperTestModule);
 		
     	// set up mocks for the 'required' modules using mockery
@@ -62,9 +56,7 @@ describe('Food scraper', function() {
 	    cheerioLoadSpy.restore();
 	    cheerioTextMethodStub.restore();
 	    cheerioEachMethodStub.restore();
-	    cheerioChildrenMethodStub.restore();
 	    cheerioAttrMethodStub.restore();
-	    cheerioSliceMethodStub.restore();
 	    cheerioHtmlMethodStub.restore();
 	});
 

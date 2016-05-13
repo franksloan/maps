@@ -3,7 +3,6 @@ var assert = chai.assert;
 var mockery = require('mockery');
 var sinon = require('sinon');
 var filmScraperTestModule = '../../../server/webscrapers/filmScraper';
-var callbackStub = function(){};
 var imdbUrl = "http://www.imdb.com";
 var cheerioModuleStub = { load: function(){ } };
 var cheerioDollarStub;

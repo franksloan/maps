@@ -3,7 +3,6 @@ var assert = chai.assert;
 var mockery = require('mockery');
 var sinon = require('sinon');
 var countryIntroScraperTestModule = '../../../server/webscrapers/countryIntroScraper';
-var callbackStub = function(){};
 var lonelyPlanetUrl = "http://www.lonelyplanet.com";
 var cheerioModuleStub = { load: function(){ } };
 var cheerioDollarStub;

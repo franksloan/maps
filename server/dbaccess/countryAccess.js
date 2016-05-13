@@ -20,7 +20,7 @@ var findCountryDocument = function(db, options, callback){
 	var countryMatchFound = false;   
     cursor.each(function(err, doc) {
 	    assert.equal(err, null);
-	    
+	    console.log(doc)
 	    if (doc != null) {
 	        countryMatchFound = true;
         } else {
