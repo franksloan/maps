@@ -1,6 +1,7 @@
 var request = require("request"),
 	cheerio = require("cheerio"),
-	pageNotFound = 'Page Not Found';
+	pageNotFound = 'Page Not Found',
+	whats4eatsUrl = 'http://www.whats4eats.com';
 
 var foodScraper = function(countryName, callback){
 	
@@ -20,7 +21,7 @@ var foodScraper = function(countryName, callback){
 
 		countryName = countryName.replace(/ /g, "-");
 		
-		var url = 'http://www.whats4eats.com/'+regions[i]+'/'+countryName+'-cuisine';
+		var url = whats4eatsUrl+'/'+regions[i]+'/'+countryName+'-cuisine';
 
 		request(url, function(error, response, html){
 			requests++;
@@ -34,10 +35,10 @@ var foodScraper = function(countryName, callback){
 			if(title != pageNotFound){
 				recipeFound = true;
 				var howManyRecipes = $('.views-row','.region-content').length;
-				var randomRecipeNumber = Math.floor(Math.random()*howManyRecipes);
+				var randomRecipeIndex = Math.floor(Math.random()*howManyRecipes);
 				$('.views-row','.region-content').each(function(j, elem){
-					if(j == randomRecipeNumber){
-						var suffix = $('a', elem).attr('href');			
+					if(j == randomRecipeIndex){
+						var suffix = $('a', elem).attr('href');
 						getFoodInfo(suffix, function(foodInfo){
 							callback(foodInfo);
 						});
@@ -54,7 +55,7 @@ var foodScraper = function(countryName, callback){
 }
 
 var getFoodInfo = function(suffix, callback){
-	var url = 'http://www.whats4eats.com'+suffix;
+	var url = whats4eatsUrl+suffix;
 	request(url, function(error, response, html){
 		var $ = cheerio.load(html, {
 				normalizeWhitespace:true,
